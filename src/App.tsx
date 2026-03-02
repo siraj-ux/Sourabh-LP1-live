@@ -37,7 +37,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/Sourabh-LP1">
         {/* 🔥 This is the important addition */}
         <MetaRouteTracker />
 
