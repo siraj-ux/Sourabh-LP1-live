@@ -32,11 +32,15 @@ const PainPointsSection = () => {
           {/* Headline */}
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-4">
-              Head, Shoulders, Knees ya Toes me <span className="text-[#0047AB]">dard?</span>
+              Head, Shoulders, Knees ya Heels me  <span className="text-[#0047AB]">dard?</span>
             </h2>
-            <p className="text-sm md:text-base text-slate-500 font-medium max-w-xl mx-auto">
-              Neeche click karke batao aap kya experience kar rahe ho:
-            </p>
+
+            {/* NEW HIGHLIGHTED TEXT */}
+            <div className="bg-yellow-100 border border-yellow-200 px-4 py-2 rounded-lg inline-block shadow-sm">
+              <p className="text-sm md:text-base text-slate-900 font-black">
+                Neeche click karke batao aap kya experience kar rahe ho:
+              </p>
+            </div>
           </div>
 
           {/* Checklist Area */}

@@ -34,7 +34,7 @@ const SocialProofSection = () => {
         
         {/* TOP SECTION: STATS */}
         <h2 className="text-2xl md:text-4xl font-black text-slate-900 text-center mb-8 tracking-tight">
-          Aise Numbers Jo <span className="text-[#0047AB]">Khud Bolte Hain</span>
+         Successful Pain Relief<span className="text-[#0047AB]"> Successful Numbers</span>
         </h2>
 
         {/* Grid: 2 columns on mobile, 4 on desktop */}
@@ -68,7 +68,7 @@ const SocialProofSection = () => {
         {/* BOTTOM SECTION: HEADLINE */}
         <div className="text-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
-            Head, Shoulders, Knees <br className="md:hidden" /> ya Toes me <span className="text-[#0047AB]">dard?</span>
+            Head, Shoulders, Knees  <br className="md:hidden" /> ya Heels me <span className="text-[#0047AB]">dard?</span>
           </h2>
           <p className="text-sm md:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed px-4">
             Agar haan, toh aap akele nahi hain. Thousands of patients ne same challenges face kiye hain.

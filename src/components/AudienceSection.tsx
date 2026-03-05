@@ -20,7 +20,7 @@ const AudienceSection = () => {
           {/* Header Block */}
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">
-              Yeh Un Logon Ke Liye Hai Jo <span className="text-[#0047AB]">Kisi Bhi Industry</span> Mein Pain Mein Hain
+             Yeh Workshop   <span className="text-[#0047AB]">Kis Ke Liye Hai? </span> 
             </h2>
             <p className="text-slate-500 text-base md:text-lg font-medium">
               Aapka profession jo bhi ho, agar dard aapki progress rok raha hai, toh yeh workshop aapke liye hai.

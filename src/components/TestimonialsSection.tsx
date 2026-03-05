@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
 
             {/* Heading */}
             <h2 className="text-2xl md:text-4xl font-black text-center mb-4 text-slate-900 leading-tight">
-              Humare ab <span className="text-[#0047AB]">Pain-free Clients</span> se hi sunlo
+             Pain-Free Clients  <span className="text-[#0047AB]">K Real Feedback</span> 
             </h2>
 
             {/* Google Rating - Clean white style */}

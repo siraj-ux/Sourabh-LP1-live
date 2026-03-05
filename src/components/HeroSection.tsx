@@ -55,18 +55,28 @@ const HeroSection = () => {
           2-Day Live Workshop • 30,000+ Cases Reversed • <span className="text-yellow-400">⭐ 4.6</span>
         </div>
 
-        <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.15] mb-4 px-2">
-          Dard ko bolo <span className="text-yellow-400">bye</span>, <br className="hidden md:block" />
-          aaram ko bolo <span className="text-yellow-400">hi</span>
+        {/* Heading */}
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] mb-4 px-2">
+           <br className="hidden md:block" />
+          Spine, Knee Aur Neck Pain Se <span className="text-yellow-400">Natural Relief</span> Kaise Paayein?
         </h1>
 
-        <div className="space-y-1 mb-6 md:mb-8 px-4">
-          <p className="text-base md:text-xl font-medium opacity-95">
-            without ever stepping into a Clinic
+        {/* Subheading */}
+        <div className="space-y-1 mb-6 px-4">
+          <p className="text-base md:text-xl font-medium opacity-95 max-w-3xl mx-auto leading-relaxed">
+           Long-Term Relief Ke Liye, Bina Medicines, Surgery, Physio, Chiro Ya Oil Massages Ke.
           </p>
-          <p className="text-xs md:text-base opacity-80 max-w-xl mx-auto leading-relaxed">
-            Non-Invasive therapy for busy professionals & entrepreneurs to feel like your best self again.
-          </p>
+        </div>
+
+        {/* Rating Image (2.png) - Reduced Size & Rounded Edges */}
+        <div className="flex justify-center mb-8 md:mb-12 px-4">
+          <div className="overflow-hidden rounded-xl md:rounded-2xl shadow-lg border border-white/10">
+            <img 
+              src="/2.png" 
+              alt="4.6 Rating | 1000+ Reviews On Google" 
+              className="h-8 md:h-10 w-auto object-contain brightness-110"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-8 md:gap-10 w-full">
@@ -110,12 +120,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* REFINED VIDEO SECTION */}
           <AnimatedSection className="w-full">
-            {/* 
-               Decreased Size on Desktop: 
-               Changed max-w-5xl to md:max-w-3xl (approx 768px wide)
-            */}
             <div className="w-full md:max-w-3xl mx-auto px-0"> 
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
@@ -134,7 +139,6 @@ const HeroSection = () => {
                       />
                       
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover/thumb:bg-black/30 transition-colors duration-300">
-                        {/* Play button size slightly reduced for the smaller frame */}
                         <div className="bg-yellow-400 text-black p-4 md:p-6 rounded-full shadow-[0_0_40px_rgba(250,204,21,0.5)] group-hover/thumb:scale-110 transition-transform duration-300">
                           <Play size={32} fill="currentColor" className="ml-1" />
                         </div>

@@ -11,6 +11,7 @@ import UrgencySection from "@/components/UrgencySection";
 import FooterSection from "@/components/FooterSection";
 import StickyFooter from "@/components/StickyFooter";
 import { useNonFBPixel } from "@/hooks/useNonFBPixel";
+// import ReviewsSection from "@/components/ReviewSection";
 
 const Index = () => {
   useNonFBPixel({ eventName: "PageView" });
@@ -19,11 +20,13 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <HeroSection />
       <SocialProofSection />
+      <TestimonialsSection />
       <PainPointsSection />
       <WorkshopSection />
       <AudienceSection />
       <ExpertSection />
-      <TestimonialsSection />
+      {/* <ReviewsSection /> */}
+      
       <PricingSection />
       <FAQSection />
       <UrgencySection />

@@ -21,7 +21,7 @@ const AudienceSection = () => {
           <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12">
 
             <h2 className="text-2xl md:text-4xl font-bold text-center mb-10">
-              Yeh Un Logon Ke Liye Hai Jo Kisi Bhi Industry Mein Pain Mein Hain
+              Yeh Workshop Kis Ke Liye Hai?
             </h2>
 
             {/* Mobile Scroll */}

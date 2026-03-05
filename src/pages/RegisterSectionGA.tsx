@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
+import { Lock, ShieldCheck, CreditCard } from "lucide-react";
 
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
@@ -40,20 +41,16 @@ const RegisterSection = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Save form data to localStorage so ThankYou page can use it
     localStorage.setItem("lastRegistration", JSON.stringify(formData));
 
-    // Pre-save form data to backend (webhook will use this)
     fetch("https://sourabh-lp-1.onrender.com/api/pre-register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
-    }).catch(console.error); // fire-and-forget
+    }).catch(console.error);
 
-    // Track Facebook pixel event
     if (window.fbq) window.fbq("track", "InitiateCheckout");
 
-    // Redirect to Razorpay with pre-filled fields (delay to let pixel fire)
     const params = new URLSearchParams({
       full_name: formData.name,
       email: formData.email,
@@ -68,87 +65,79 @@ const RegisterSection = () => {
   };
 
   const inputClass = (field: string) =>
-    `w-full bg-card border rounded-xl px-4 py-3 text-foreground text-sm
-     transition-all duration-200
-     focus:outline-none focus:ring-2 focus:ring-orange-500/60
-     focus:border-orange-500
-     ${errors[field] ? "border-red-500" : "border-border"}`;
+    `w-full bg-slate-50 border-2 rounded-2xl px-4 py-4 text-slate-900 text-sm font-semibold
+     transition-all duration-300
+     focus:outline-none focus:ring-4 focus:ring-blue-100
+     focus:border-[#0047AB]
+     ${errors[field] ? "border-red-500 bg-red-50" : "border-slate-100"}`;
 
   return (
-    <section id="register" className="py-10 md:py-8 px-4">
-      <div className="max-w-2xl mx-auto">
+    <section id="register" className="py-16 md:py-24 px-4 bg-slate-50">
+      <div className="max-w-3xl mx-auto">
         <AnimatedSection>
-          <div className="relative bg-secondary/30 rounded-3xl px-6 md:px-10 py-12 overflow-hidden">
+          <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,71,171,0.08)] border border-slate-100 overflow-hidden">
+            
+            {/* Header / Pricing Banner */}
+            <div className="bg-[#0047AB] p-8 md:p-12 text-center text-white relative">
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_white,transparent)]" />
+                
+                <h2 className="text-2xl md:text-4xl font-black mb-4 relative z-10 leading-tight">
+                    Workshop Mein Apni <span className="text-yellow-400">Seat Book</span> Karein
+                </h2>
+                
+                <div className="flex items-center justify-center gap-4 relative z-10 bg-white/10 w-fit mx-auto px-6 py-2 rounded-full backdrop-blur-md border border-white/20">
+                    <span className="text-xs font-bold uppercase tracking-widest opacity-80">Special Price</span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl md:text-3xl font-black text-yellow-400">₹99</span>
+                        <span className="text-sm line-through opacity-50 font-bold">₹499</span>
+                    </div>
+                </div>
+            </div>
 
-            {/* Ambient Glow */}
-            <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl"></div>
-
-            <div className="relative max-w-lg mx-auto">
-
-              <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-                FM4 Workshop Mein Apni Seat Book Karein
-              </h2>
-
-              <p className="text-center mb-2">
-                <span className="text-foreground">Special Price: </span>
-                <span className="text-gradient font-bold">₹99</span>
-                <span className="text-muted-foreground line-through ml-2">₹499</span>
-              </p>
-
-              {/* Razorpay Badge */}
-              <div className="flex justify-center mb-6">
-                <div className="flex items-center gap-2 px-5 py-2 rounded-full
-                                border border-orange-500/40
-                                bg-gradient-to-r from-orange-500/5 to-yellow-400/5
-                                backdrop-blur-sm
-                                shadow-[0_0_10px_rgba(255,140,0,0.15)]">
-                  <span className="text-orange-400 text-sm">🔒</span>
-                  <span className="text-xs text-muted-foreground">
-                    Secure Checkout by
-                  </span>
-                  <span className="text-orange-400 font-semibold text-xs tracking-wide">
-                    Razorpay
-                  </span>
+            <div className="p-6 md:p-12">
+              {/* Trust Badges */}
+              <div className="flex flex-wrap justify-center gap-4 mb-10">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 border border-slate-100">
+                  <Lock size={14} className="text-[#0047AB]" />
+                  <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-tight">Razorpay Secure</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 border border-slate-100">
+                  <ShieldCheck size={14} className="text-[#0047AB]" />
+                  <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-tight">Verified Checkout</span>
                 </div>
               </div>
 
               <form
-                className={`space-y-4 ${shake ? "animate-shake" : ""}`}
+                className={`space-y-5 max-w-lg mx-auto ${shake ? "animate-shake" : ""}`}
                 onSubmit={handleSubmit}
               >
-
                 {/* Name */}
-                <div>
-                  <label className="text-sm text-muted-foreground mb-1 block">Full Name</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
                   <input
+                    placeholder="Enter your name"
                     className={inputClass("name")}
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
 
-                {/* Age & City */}
+                {/* Age & City Row */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">Age</label>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Age</label>
                     <input
                       type="number"
-                      min="1"
-                      max="120"
+                      placeholder="Years"
                       className={inputClass("age")}
                       value={formData.age}
-                      onChange={e =>
-                        setFormData({
-                          ...formData,
-                          age: e.target.value.replace(/\D/g, ""),
-                        })
-                      }
+                      onChange={e => setFormData({ ...formData, age: e.target.value.replace(/\D/g, "") })}
                     />
                   </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">City</label>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">City</label>
                     <input
+                      placeholder="Your City"
                       className={inputClass("city")}
                       value={formData.city}
                       onChange={e => setFormData({ ...formData, city: e.target.value })}
@@ -157,10 +146,11 @@ const RegisterSection = () => {
                 </div>
 
                 {/* Email */}
-                <div>
-                  <label className="text-sm text-muted-foreground mb-1 block">Email</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
                   <input
                     type="email"
+                    placeholder="example@mail.com"
                     className={inputClass("email")}
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -168,45 +158,39 @@ const RegisterSection = () => {
                 </div>
 
                 {/* Phone */}
-                <div>
-                  <label className="text-sm text-muted-foreground mb-1 block">Phone</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">WhatsApp Phone Number</label>
                   <input
                     type="tel"
                     maxLength={10}
+                    placeholder="10 digit number"
                     className={inputClass("phone")}
                     value={formData.phone}
-                    onChange={e =>
-                      setFormData({
-                        ...formData,
-                        phone: e.target.value.replace(/\D/g, ""),
-                      })
-                    }
+                    onChange={e => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
                   />
                 </div>
 
-                {/* CTA */}
-                <div className="relative mt-6 flex justify-center">
+                {/* CTA Button */}
+                <div className="pt-6">
                   <button
                     type="submit"
-                    className="relative px-10 py-4 rounded-xl
-                    bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00]
-                    text-black font-bold text-sm
-                    shadow-[0_0_15px_rgba(255,140,0,0.35)]
-                    transition-all duration-300
-                    hover:scale-105 hover:-translate-y-1
-                    hover:shadow-[0_0_25px_rgba(255,140,0,0.5)]
-                    active:scale-95"
+                    className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-lg md:text-xl font-black py-5 rounded-2xl shadow-xl shadow-orange-100 transition-all active:scale-95 uppercase tracking-tight flex items-center justify-center gap-3"
                   >
-                    ABHI REGISTER KAREIN — ₹99 PAY KAREIN
+                    ABHI REGISTER KAREIN — ₹99
                   </button>
+                  
+                  <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-6">
+                     UPI • Cards • Net Banking • Wallets
+                  </p>
                 </div>
-
-                <p className="text-center text-muted-foreground text-xs mt-2">
-                  UPI • Cards • Net Banking • Wallets Supported
-                </p>
-
               </form>
             </div>
+          </div>
+          
+          <div className="mt-10 text-center">
+            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">
+               India's Most Trusted Pain Relief Workshop
+            </p>
           </div>
         </AnimatedSection>
       </div>
