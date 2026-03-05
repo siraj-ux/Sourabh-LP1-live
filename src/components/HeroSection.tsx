@@ -46,19 +46,15 @@ const HeroSection = () => {
   };
 
   return (
-    /* Reduced padding and removed min-h-screen */
     <section className="relative min-h-0 flex flex-col items-center bg-[#0047AB] overflow-hidden px-4 py-8 md:py-12">
-      {/* Background Radial Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-600 via-[#0047AB] to-[#003380] opacity-100" />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center text-white">
+      <div className="relative z-10 max-w-5xl mx-auto text-center text-white w-full">
         
-        {/* Top Badge - reduced mb */}
         <div className="inline-block bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 text-[10px] md:text-sm font-semibold mb-4">
           2-Day Live Workshop • 30,000+ Cases Reversed • <span className="text-yellow-400">⭐ 4.6</span>
         </div>
 
-        {/* Headlines - reduced mb */}
         <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.15] mb-4 px-2">
           Dard ko bolo <span className="text-yellow-400">bye</span>, <br className="hidden md:block" />
           aaram ko bolo <span className="text-yellow-400">hi</span>
@@ -73,10 +69,8 @@ const HeroSection = () => {
           </p>
         </div>
 
-        {/* Reduced gap from 12 to 8 */}
-        <div className="flex flex-col items-center gap-8 md:gap-10">
+        <div className="flex flex-col items-center gap-8 md:gap-10 w-full">
           
-          {/* CTA Card - reduced internal padding slightly */}
           <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[2rem] p-5 md:p-8 border border-white/10 shadow-2xl">
             <div className="mb-4">
               <h3 className="text-lg md:text-2xl font-bold mb-1">
@@ -98,7 +92,6 @@ const HeroSection = () => {
               Full Hone Par Booking Band!
             </p>
 
-            {/* Timer - reduced pt */}
             <div className="flex justify-center items-center gap-4 md:gap-8 border-t border-white/10 pt-4">
                <div className="text-center">
                   <div className="text-2xl md:text-3xl font-black text-yellow-400">{timeLeft.hours}</div>
@@ -117,17 +110,21 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Video Section */}
-          <AnimatedSection>
-            <div className="w-full max-w-4xl mx-auto px-2">
+          {/* REFINED VIDEO SECTION */}
+          <AnimatedSection className="w-full">
+            {/* 
+               Decreased Size on Desktop: 
+               Changed max-w-5xl to md:max-w-3xl (approx 768px wide)
+            */}
+            <div className="w-full md:max-w-3xl mx-auto px-0"> 
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-[2rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
                 
-                <div className="relative bg-transparent rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/10 aspect-video">
+                <div className="relative w-full aspect-video bg-transparent rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/15">
                   
                   {!isPlaying ? (
                     <div 
-                      className="relative w-full h-full cursor-pointer group/thumb"
+                      className="absolute inset-0 w-full h-full cursor-pointer group/thumb"
                       onClick={() => setIsPlaying(true)}
                     >
                       <img 
@@ -137,6 +134,7 @@ const HeroSection = () => {
                       />
                       
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover/thumb:bg-black/30 transition-colors duration-300">
+                        {/* Play button size slightly reduced for the smaller frame */}
                         <div className="bg-yellow-400 text-black p-4 md:p-6 rounded-full shadow-[0_0_40px_rgba(250,204,21,0.5)] group-hover/thumb:scale-110 transition-transform duration-300">
                           <Play size={32} fill="currentColor" className="ml-1" />
                         </div>
@@ -146,7 +144,7 @@ const HeroSection = () => {
                     <iframe
                       src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479"
                       allow="autoplay; fullscreen; picture-in-picture"
-                      className="absolute top-0 left-0 w-full h-full border-0 outline-none"
+                      className="absolute inset-0 w-full h-full border-0 outline-none"
                       title="Workshop Intro Video"
                       frameBorder="0"
                     ></iframe>
@@ -154,8 +152,8 @@ const HeroSection = () => {
 
                 </div>
               </div>
-              <p className="mt-3 text-[10px] md:text-xs font-medium opacity-60 italic">
-                Click above to watch the recovery demo.
+              <p className="mt-4 text-[10px] md:text-xs font-bold opacity-70 uppercase tracking-widest text-yellow-400">
+                Dekhiye FM4 Therapy Live Action Mein 
               </p>
             </div>
           </AnimatedSection>
