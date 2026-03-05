@@ -1,16 +1,17 @@
-import HeroSection from "@/components/FB/HeroSection";
-import SocialProofSection from "@/components/FB/SocialProofSection";
-import PainPointsSection from "@/components/FB/PainPointsSection";
-import WorkshopSection from "@/components/FB/WorkshopSection";
-import AudienceSection from "@/components/FB/AudienceSection";
-import ExpertSection from "@/components/FB/ExpertSection";
-import TestimonialsSection from "@/components/FB/TestimonialsSection";
-import PricingSection from "@/components/FB/PricingSection";
-import FAQSection from "@/components/FB/FAQSection";
-import UrgencySection from "@/components/FB/UrgencySection";
-import FooterSection from "@/components/FB/FooterSection";
-import StickyFooter from "@/components/FB/StickyFooter";
+import HeroSection from "@/components/HeroSection";
+import SocialProofSection from "@/components/SocialProofSection";
+import PainPointsSection from "@/components/PainPointsSection";
+import WorkshopSection from "@/components/WorkshopSection";
+import AudienceSection from "@/components/AudienceSection";
+import ExpertSection from "@/components/ExpertSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import PricingSection from "@/components/PricingSection";
+import FAQSection from "@/components/FAQSection";
+import UrgencySection from "@/components/UrgencySection";
+import FooterSection from "@/components/FooterSection";
+import StickyFooter from "@/components/StickyFooter";
 import { useNonFBPixel } from "@/hooks/useNonFBPixel";
+// import ReviewsSection from "@/components/ReviewSection";
 
 const Index = () => {
   useNonFBPixel({ eventName: "PageView" });
@@ -19,11 +20,13 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <HeroSection />
       <SocialProofSection />
+      <TestimonialsSection />
       <PainPointsSection />
       <WorkshopSection />
       <AudienceSection />
       <ExpertSection />
-      <TestimonialsSection />
+      {/* <ReviewsSection /> */}
+      
       <PricingSection />
       <FAQSection />
       <UrgencySection />
