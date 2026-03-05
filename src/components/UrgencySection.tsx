@@ -1,5 +1,6 @@
 import AnimatedSection from "./AnimatedSection";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import { AlertCircle } from "lucide-react"; // Added for a subtle urgency icon
 
 const urgencyItems = [
   { text: "Zyada Pain:", desc: "Untreated conditions time ke saath worse hoti hain" },
@@ -12,37 +13,46 @@ const urgencyItems = [
 const UrgencySection = () => {
   const { config } = useWorkshopConfig();
 
-  // ✅ Safe fallback
+  // ✅ Safe fallback - Unchanged
   const paymentLink =
     config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
   return (
-    <section className="py-0 md:py-6 px-4">
-      <div className="max-w-3xl mx-auto bg-secondary/30 rounded-2xl px-6 md:px-10 py-8 md:py-10 text-center">
+    <section className="bg-white py-6 md:py-12 px-4">
+      {/* Container - Changed from secondary/30 to slate-50 */}
+      <div className="max-w-3xl mx-auto bg-slate-50 border border-slate-100 rounded-[2rem] px-6 md:px-10 py-10 md:py-14 text-center shadow-sm">
         <AnimatedSection>
 
-          <h2 className="text-primary text-2xl md:text-4xl font-bold mb-6">
-            Bohot Der Hone Ka Wait Mat Karo
+          {/* Heading - Updated to Red for Urgency but kept the font style of the workshop */}
+          <h2 className="text-red-600 text-2xl md:text-4xl font-black mb-6 leading-tight">
+            Bohot Der Hone Ka Wait <span className="underline decoration-red-200">Mat Karo</span>
           </h2>
 
-          <p className="text-foreground text-xl font-bold md:text-2xl mb-6">
+          <p className="text-slate-900 text-xl font-bold md:text-2xl mb-8">
             Har din delay karne se aap yeh kho rahe hain:
           </p>
 
-          <div className="space-y-3 text-left mb-8">
+          {/* List - Cleaned up typography and colors */}
+          <div className="space-y-4 text-center mb-10">
             {urgencyItems.map((item, i) => (
-              <div key={i} className="flex items-center justify-center gap-2 text-center">
-                <p className="text-lg text-foreground">
-                  <strong className="text-[#FFA000]">{item.text}</strong> {item.desc}
+              <div key={i} className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
+                <p className="text-base md:text-lg text-slate-600 font-medium">
+                  <strong className="text-slate-900 font-black uppercase text-sm md:text-base mr-1">
+                    {item.text}
+                  </strong> 
+                  {item.desc}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="text-primary font-semibold mb-6">
-            41 Seats Bachi Hain | Aapki Pain-Free Life Yahan Se Start Hoti Hai
-          </p>
+          {/* Scarcity Note */}
+          <div className="flex items-center justify-center gap-2 text-[#0047AB] font-bold mb-8 bg-[#0047AB]/5 w-fit mx-auto px-6 py-2 rounded-full border border-[#0047AB]/10">
+            <AlertCircle className="w-5 h-5" />
+            <span>41 Seats Bachi Hain | Pain-Free Life Yahan Se Start Hoti Hai</span>
+          </div>
 
+          {/* Button - Styled to match the Workshop CTA but kept the width as requested */}
           <button
             onClick={() => {
               if (window.fbq) {
@@ -54,14 +64,13 @@ const UrgencySection = () => {
                 window.location.href = paymentLink;
               }, 150);
             }}
-            className="relative px-24 py-4 rounded-xl 
-            bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00]
-            text-black font-bold text-lg
-            shadow-[0_0_25px_rgba(255,140,0,0.6)]
+            className="w-full md:w-auto relative px-12 md:px-24 py-5 rounded-2xl 
+            bg-[#0047AB] text-white font-black text-lg
+            shadow-[0_10px_25px_rgba(0,71,171,0.3)]
             transition-all duration-300
             hover:scale-105 hover:-translate-y-1
-            hover:shadow-[0_0_45px_rgba(255,140,0,0.9)]
-            active:scale-95"
+            hover:shadow-[0_15px_35px_rgba(0,71,171,0.4)]
+            active:scale-95 uppercase tracking-tight"
           >
             APNI SEAT ABHI CLAIM KAREIN
           </button>

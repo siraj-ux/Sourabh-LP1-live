@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+import { Plus } from "lucide-react"; // Optional: Added for a cleaner icon look
 
 const faqs = [
   { q: "Kya aap severe conditions ke liye complete pain relief ki guarantee de sakte hain?", a: "Jabki humari 30,000+ success rate hai, results aapki specific condition, consistency, aur commitment pe depend karte hain. Hum honest assessments aur realistic timelines provide karte hain." },
@@ -14,43 +15,45 @@ const faqs = [
 ];
 
 const FAQSection = () => {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-10 md:py-6 px-4">
+    <section className="bg-white py-10 md:py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <AnimatedSection>
 
-          <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12">
+          {/* Wrapper - Changed from secondary/30 to slate-50 */}
+          <div className="bg-slate-50 border border-slate-100 rounded-[2rem] px-6 md:px-10 py-12 shadow-sm">
 
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-10">
-              Aam Sawaal (FAQ)
+            <h2 className="text-2xl md:text-4xl font-black text-center mb-10 text-slate-900 leading-tight">
+              Aam Sawaal <span className="text-[#0047AB]">(FAQ)</span>
             </h2>
 
             <div className="space-y-4">
               {faqs.map((faq, i) => (
                 <div
                   key={i}
-                  className="card-gradient border border-border rounded-xl overflow-hidden shadow-card transition-all duration-300"
+                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   <button
                     onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-white/5 transition"
+                    className="w-full text-left px-6 py-5 flex items-center justify-between hover:bg-slate-50 transition"
                   >
-                    <span className="text-foreground font-semibold text-sm md:text-base pr-4">
+                    <span className="text-slate-900 font-bold text-sm md:text-base pr-4 leading-snug">
                       {faq.q}
                     </span>
 
-                    {/* Animated Icon */}
+                    {/* Animated Icon - Updated to #0047AB Blue */}
                     <span
-                      className={`text-primary text-xl flex-shrink-0 transition-transform duration-300 ${
+                      className={`text-[#0047AB] text-2xl flex-shrink-0 transition-transform duration-300 font-light ${
                         open === i ? "rotate-45" : ""
                       }`}
                     >
-                      +
+                      <Plus className="w-5 h-5 md:w-6 md:h-6 stroke-[3px]" />
                     </span>
                   </button>
 
+                  {/* Logic remains exactly the same for height transition */}
                   <div
                     className={`grid transition-all duration-300 ease-in-out ${
                       open === i
@@ -58,8 +61,9 @@ const FAQSection = () => {
                         : "grid-rows-[0fr] opacity-0"
                     }`}
                   >
-                    <div className="overflow-hidden px-6 pb-4">
-                      <p className="text-yellow-600 text-sm leading-relaxed">
+                    <div className="overflow-hidden px-6 pb-6">
+                      {/* Changed from yellow-600 to a clean professional slate-600 */}
+                      <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium border-t border-slate-50 pt-4">
                         {faq.a}
                       </p>
                     </div>

@@ -14,73 +14,87 @@ const AudienceSection = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="py-10 md:py-8 px-4">
+    <section className="bg-white py-12 md:py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
-
-          <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12">
-
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-10">
-              Yeh Un Logon Ke Liye Hai Jo Kisi Bhi Industry Mein Pain Mein Hain
+          {/* Header Block */}
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">
+              Yeh Un Logon Ke Liye Hai Jo <span className="text-[#0047AB]">Kisi Bhi Industry</span> Mein Pain Mein Hain
             </h2>
+            <p className="text-slate-500 text-base md:text-lg font-medium">
+              Aapka profession jo bhi ho, agar dard aapki progress rok raha hai, toh yeh workshop aapke liye hai.
+            </p>
+          </div>
 
-            {/* Mobile Scroll */}
-            <div className="md:hidden">
-
-              <div
-                className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar snap-x snap-mandatory"
-                onScroll={(e) => {
-  const scrollLeft = e.currentTarget.scrollLeft;
-  const cardWidth = 276; // 260px card + 16px gap
-  const index = Math.round(scrollLeft / cardWidth);
-  setActive(index);
-}}
-
-              >
-                {audiences.map((a, i) => (
-                  <div
-                    key={i}
-                    className="card-gradient border border-border rounded-2xl p-5 shadow-card w-[260px] min-w-[260px] snap-center flex-shrink-0"
-                  >
-                    <span className="text-2xl mb-2 block">{a.emoji}</span>
-                    <h3 className="text-foreground font-bold text-sm mb-2">{a.title}</h3>
-                    <p className="text-xs text-blue-100 leading-relaxed">{a.text}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Scroll Dots */}
-              <div className="flex justify-center gap-2 mt-4">
-                {audiences.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      active === i
-                        ? "w-6 bg-primary"
-                        : "w-2 bg-muted-foreground/40"
-                    }`}
-                  />
-                ))}
-              </div>
-
-            </div>
-
-            {/* Desktop Grid */}
-            <div className="hidden md:grid md:grid-cols-3 gap-6">
+          {/* Mobile Scroll View */}
+          <div className="md:hidden">
+            <div
+              className="flex gap-5 overflow-x-auto pb-8 hide-scrollbar snap-x snap-mandatory"
+              onScroll={(e) => {
+                const scrollLeft = e.currentTarget.scrollLeft;
+                const width = e.currentTarget.offsetWidth - 40; // Approx card width
+                const index = Math.round(scrollLeft / width);
+                setActive(index);
+              }}
+            >
               {audiences.map((a, i) => (
                 <div
                   key={i}
-                  className="card-gradient border border-border rounded-2xl p-6 shadow-card hover:-translate-y-2 hover:shadow-glow transition-all duration-300"
+                  className="bg-white border border-slate-100 rounded-[2rem] p-8 shadow-xl w-[280px] min-w-[280px] snap-center flex-shrink-0 flex flex-col items-center text-center"
                 >
-                  <span className="text-3xl mb-3 block">{a.emoji}</span>
-                  <h3 className="text-foreground font-bold mb-2">{a.title}</h3>
-                  <p className="text-sm text-blue-100">{a.text}</p>
+                  <div className="w-16 h-16 bg-[#0047AB]/5 rounded-2xl flex items-center justify-center text-4xl mb-6">
+                    {a.emoji}
+                  </div>
+                  <h3 className="text-slate-900 font-black text-lg mb-3 leading-tight">
+                    {a.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed">
+                    {a.text}
+                  </p>
                 </div>
               ))}
             </div>
 
+            {/* Scroll Dots */}
+            <div className="flex justify-center gap-2 -mt-2">
+              {audiences.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    active === i ? "w-6 bg-[#0047AB]" : "w-2 bg-slate-200"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
 
+          {/* Desktop Grid View */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8">
+            {audiences.map((a, i) => (
+              <div
+                key={i}
+                className="group bg-white border border-slate-100 rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-2"
+              >
+                <div className="w-16 h-16 bg-slate-50 group-hover:bg-[#0047AB]/10 rounded-2xl flex items-center justify-center text-4xl mb-6 transition-colors">
+                  {a.emoji}
+                </div>
+                <h3 className="text-slate-900 font-black text-xl mb-4 leading-tight">
+                  {a.title}
+                </h3>
+                <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">
+                  {a.text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Accent Block (Optional, matching the reference style) */}
+          <div className="mt-16 bg-[#0047AB]/5 border border-[#0047AB]/10 rounded-3xl p-6 text-center">
+            <p className="text-[#0047AB] font-bold text-lg">
+              Health is the foundation of every successful career.
+            </p>
+          </div>
         </AnimatedSection>
       </div>
     </section>

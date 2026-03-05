@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+import { Check } from "lucide-react";
 
 const painPoints = [
   "Aapne painkillers try kiye, kuch ghanton ke liye kaam karte hain, phir pain wapas aa jata hai",
@@ -12,50 +13,83 @@ const painPoints = [
 
 const PainPointsSection = () => {
   const [checked, setChecked] = useState<boolean[]>(new Array(painPoints.length).fill(false));
+  
   const toggle = (i: number) => {
-    setChecked(prev => { const next = [...prev]; next[i] = !next[i]; return next; });
+    setChecked(prev => { 
+      const next = [...prev]; 
+      next[i] = !next[i]; 
+      return next; 
+    });
   };
+
   const count = checked.filter(Boolean).length;
 
   return (
-    <section className="py-12 md:py-8 px-4">
-  <div className="max-w-4xl mx-auto bg-secondary/30 rounded-2xl px-6 md:px-10 py-8 md:py-10">
-
+    <section className="bg-white py-12 md:py-16 px-4">
+      <div className="max-w-3xl mx-auto">
+        
         <AnimatedSection>
-          <h2 className=" font-black text-center text-xl md:text-3xl mb-4">
-            <span className="text-gradient">Head, Shoulders, Knees ya Toes me dard?</span>{" "}
-            Agar haan, toh aap akele nahi hain. Thousands of patients ne same challenges face kiye hain.
-          </h2>
-          <span className="block text-primary font-bold text-center text-lg md:text-2xl mb-6 mt-8">
-            Neeche click karke batao aap kya experience kar rahe ho:
-          </span>
+          {/* Headline */}
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-4">
+              Head, Shoulders, Knees ya Toes me <span className="text-[#0047AB]">dard?</span>
+            </h2>
+            <p className="text-sm md:text-base text-slate-500 font-medium max-w-xl mx-auto">
+              Neeche click karke batao aap kya experience kar rahe ho:
+            </p>
+          </div>
+
+          {/* Checklist Area */}
           <div className="space-y-3">
             {painPoints.map((p, i) => (
-              <button key={i} onClick={() => toggle(i)}
-                className={`w-full flex items-start gap-3 card-gradient border rounded-xl p-4 shadow-card text-left transition-all ${checked[i] ? "border-primary" : "border-border"}`}>
-                <div className={`w-5 h-5 rounded border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${checked[i] ? "bg-primary border-primary" : "border-muted-foreground"}`}>
+              <button 
+                key={i} 
+                onClick={() => toggle(i)}
+                className={`group w-full flex items-center gap-4 bg-white border rounded-xl p-4 text-left transition-all duration-200
+                ${checked[i] 
+                  ? "border-[#0047AB] bg-blue-50/40 shadow-sm" 
+                  : "border-slate-200 hover:border-slate-300 shadow-sm"
+                }`}
+              >
+                {/* Square Checkbox UI */}
+                <div className={`
+                  flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-200
+                  ${checked[i] 
+                    ? "bg-[#0047AB] border-[#0047AB]" 
+                    : "bg-white border-slate-300 group-hover:border-[#0047AB]/50"
+                  }
+                `}>
                   {checked[i] && (
-                    <svg className="w-3 h-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Check className="w-4 h-4 text-white stroke-[3px]" />
                   )}
                 </div>
-                <p className="text-foreground text-sm md:text-base">{p}</p>
+
+                {/* Text Content */}
+                <p className={`text-sm md:text-base leading-snug transition-colors ${
+                  checked[i] ? "text-[#0047AB] font-semibold" : "text-slate-700 font-medium"
+                }`}>
+                  {p}
+                </p>
               </button>
             ))}
           </div>
+
+          {/* Result Feedback: Shows only if users interact */}
           {count >= 2 && (
-            <div className="mt-10 card-gradient border border-primary/30 rounded-xl p-6 text-center shadow-glow animate-fade-in">
-              <p className="text-foreground">
-                Agar aapne 2 se zyada boxes check kiye hain... <strong>Congratulations...</strong>
+            <div className="mt-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center animate-in fade-in zoom-in duration-300">
+              <p className="text-base md:text-lg font-bold text-slate-900">
+                Aapne {count} boxes check kiye hain...
               </p>
-              <p className="text-muted-foreground mt-2">
-                Aap officially pain ke saath hamesha jeene waale hain...{" "}
-                <strong className="text-primary">jab tak aap kuch naya try nahi karte.</strong>
+              <p className="text-slate-600 text-sm mt-2 max-w-md mx-auto">
+                Pain ke saath jeena normal nahi hai. <br />
+                <span className="text-[#0047AB] font-bold underline decoration-2 underline-offset-4">
+                  Aapko is therapy ki zarurat hai.
+                </span>
               </p>
             </div>
           )}
         </AnimatedSection>
+
       </div>
     </section>
   );

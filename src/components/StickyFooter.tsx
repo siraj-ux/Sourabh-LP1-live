@@ -1,46 +1,63 @@
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import { ArrowRight, Zap } from "lucide-react"; 
 
 const StickyFooter = () => {
   const { config } = useWorkshopConfig();
 
-  // ✅ Safe fallback
+  // ✅ Safe fallback - Unchanged
   const paymentLink =
     config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 
-                 bg-card/95 backdrop-blur-sm 
-                 border-t border-border py-3 px-4"
+      className="fixed bottom-0 left-0 right-0 z-[100] 
+                 bg-white/95 backdrop-blur-md 
+                 border-t border-slate-200/60 shadow-[0_-10px_25px_rgba(0,0,0,0.05)]"
     >
-      <div className="max-w-lg mx-auto flex justify-center">
+      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        
+        {/* Left Side: Pricing & Scarcity (Small & Clean) */}
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-xl md:text-2xl font-black text-slate-900 leading-none">
+              ₹99
+            </span>
+            {/* <span className="text-xs md:text-sm text-slate-400 line-through font-medium">
+              ₹499
+            </span> */}
+            <span className="bg-orange-50 text-orange-600 text-[9px] font-black px-1.5 py-0.5 rounded uppercase border border-orange-100 hidden sm:block">
+              80% OFF
+            </span>
+          </div>
+          <p className="text-[10px] md:text-xs text-slate-500 font-bold flex items-center gap-1">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
+            </span>
+            Sirf 41 seats bachi hain
+          </p>
+        </div>
 
-<button
-  onClick={() => {
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
-    }
-
-    const dynamicLink =
-      paymentLink || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
-
-    setTimeout(() => {
-      window.location.href = dynamicLink;
-    }, 150);
-  }}
-  className="relative w-full text-center py-4 rounded-xl 
-  bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00]
-  text-black font-bold text-xl
-  shadow-[0_0_25px_rgba(255,140,0,0.6)]
-  transition-all duration-300
-  hover:scale-105 hover:-translate-y-1
-  hover:shadow-[0_0_45px_rgba(255,140,0,0.9)]
-  active:scale-95"
->
-  ABHI REGISTER KAREIN – SIRF ₹99
-</button>
-
+        {/* Right Side: The Button (Reduced Size & Premium Style) */}
+        <button
+          onClick={() => {
+            if (window.fbq) {
+              window.fbq("track", "AddToCart");
+              window.fbq("track", "Subscribe");
+            }
+            // small delay for tracking - Logic unchanged
+            setTimeout(() => {
+              window.location.href = paymentLink;
+            }, 150);
+          }}
+          className="group flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 rounded-full 
+          bg-[#0047AB] text-white font-black text-xs md:text-sm uppercase tracking-tight
+          shadow-lg shadow-[#0047AB]/20 transition-all duration-300
+          hover:scale-[1.03] active:scale-95 hover:bg-[#003580]"
+        >
+          <span>Book My Seat</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </button>
 
       </div>
     </div>

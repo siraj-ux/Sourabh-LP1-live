@@ -1,222 +1,114 @@
-import { useEffect, useState, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const HeroSection = () => {
   const { config } = useWorkshopConfig();
-  const day1 = config?.day1_datetime || "2026-02-21T20:00:00";
-  const day2 = config?.day2_datetime || "2026-02-22T10:00:00";
-  const paymentLink =
-    config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
+  
+  const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
+  const day2 = config?.day2_datetime || "2026-03-08T10:00:00";
+  const paymentLink = config?.payment_link || "#";
 
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, min: 0, sec: 0 });
+  const [timeLeft, setTimeLeft] = useState({ hours: "00", min: "00", sec: "00" });
 
   useEffect(() => {
-    if (!config?.day1_datetime) return;
-
-    const target = new Date(config.day1_datetime).getTime();
-
-    const tick = () => {
-      const now = Date.now();
-      const diff = Math.max(0, target - now);
-
-      setTimeLeft({
-        hours: Math.floor((diff % 86400000) / 3600000),
-        min: Math.floor((diff % 3600000) / 60000),
-        sec: Math.floor((diff % 60000) / 1000),
-      });
+    const target = new Date(day1).getTime();
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const diff = target - now;
+      if (diff > 0) {
+        const totalHours = Math.floor(diff / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        setTimeLeft({
+          hours: totalHours.toString().padStart(2, "0"),
+          min: mins.toString().padStart(2, "0"),
+          sec: secs.toString().padStart(2, "0"),
+        });
+      }
     };
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+    return () => clearInterval(timerInterval);
+  }, [day1]);
 
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [config?.day1_datetime]);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-const [isMuted, setIsMuted] = useState(true);
-
-const toggleMute = () => {
-  if (!videoRef.current) return;
-  videoRef.current.muted = !videoRef.current.muted;
-  setIsMuted(videoRef.current.muted);
-};
+  const handleBooking = () => {
+    // @ts-ignore
+    if (window.fbq) {
+      window.fbq("track", "AddToCart");
+      window.fbq("track", "Subscribe");
+    }
+    window.location.href = paymentLink;
+  };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-background overflow-hidden">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <section className="relative min-h-[90vh] flex items-center justify-center bg-[#0047AB] overflow-hidden px-4 py-12 md:py-16">
+      {/* Background Radial Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-600 via-[#0047AB] to-[#003380] opacity-100" />
 
-          {/* LEFT SIDE */}
-          <div className="text-center md:text-left">
-
-            {/* Glowing Badges */}
-            <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6 text-sm">
-              {[
-                "2-Day Live Workshop",
-                "30,000+ Cases Reversed",
-                "4.6 Rating",
-              ].map((item, i) => (
-                <span
-                  key={i}
-                  className="bg-secondary px-4 py-1.5 rounded-full font-medium
-                             shadow-[0_0_15px_rgba(255,165,0,0.6)] animate-pulse"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            {/* Headlines */}
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-black leading-tight mb-4">
-              <span className="text-gradient">
-                Dard ko bolo bye, aaram ko bolo hi - without ever stepping into a Clinic
-              </span>{" "}
-            </h1>
-
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-black leading-tight mb-4">
-              Non-Invasive therapy to help you feel like your best self again
-            </h1>
-
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-black leading-tight mb-6">
-              Ye therapy{" "}
-              <span className="text-gradient">
-                busy professionals, entrepreneurs aur unke loved ones </span> ke liye perfect hai
-            </h1>
-
-            {/* Event Details */}
-<div className="flex flex-wrap justify-center md:justify-start gap-2 text-sm font-semibold text-primary mb-6">
-  
-  <span className="shadow-[0_0_10px_rgba(255,165,0,0.7)] rounded-2xl px-3 py-1">
-   <span className="flex items-center gap-3">
-      <span>{formatDateWithSuffix(day1)}</span>
-                  <span>&</span>
-                  <span>{formatDateWithSuffix(day2)}</span>
-    </span>
-  </span>
-
-  <span>|</span>
-
-  <span className="shadow-[0_0_10px_rgba(255,165,0,0.7)] rounded-2xl px-3 py-1">
-    <span className="flex items-center gap-3">
-      <span>Day 1: {formatTime(day1)}</span>
-                  <span>&</span>
-                  <span>Day 2: {formatTime(day2)}</span>
-    </span>
-  </span>
-
-  <span>|</span>
-
-  <span className="shadow-[0_0_10px_rgba(255,165,0,0.7)] rounded-lg px-3 py-1">
-    <span className="flex items-center gap-3">
-      <span>Hindi</span>
-      <span>&</span>
-      <span>English</span>
-    </span>
-  </span>
-
-</div>
-
-
-            {/* CTA + TIMER */}
-<div className="flex flex-col items-center md:items-start text-center md:text-left">
-
-  {/* Animated Gradient Border CTA */}
-  <div className="relative inline-block group mt-2">
-    <div className="absolute -inset-1 rounded-xl bg-gradient-to-r 
-                    from-orange-500 via-yellow-400 to-orange-500 
-                    blur opacity-40 group-hover:opacity-60 
-                    transition duration-1000 animate-gradient-x">
-    </div>
-
-    <button
-      onClick={() => {
-        // @ts-ignore
-        if (window.fbq) {
-          window.fbq("track", "AddToCart");
-          window.fbq("track", "Subscribe");
-        }
-        window.location.href = paymentLink;
-      }}
-      className="relative px-10 py-4 rounded-xl 
-      bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00]
-      text-black font-bold text-sm
-      shadow-[0_0_15px_rgba(255,140,0,0.35)]
-      transition-all duration-300
-      hover:scale-105 hover:-translate-y-1
-      hover:shadow-[0_0_25px_rgba(255,140,0,0.5)]
-      active:scale-95"
-    >
-      BOOK NOW — Sirf{" "}
-      <span className="relative">41 Seats</span>{" "}
-      Bachi Hain!
-    </button>
-  </div>
-
-  <p className="text-sm font-semibold mt-6">
-    Full Hone Par Booking Band!
-  </p>
-
-  {/* Flip Timer */}
-  <div className="flex gap-4 mt-6 justify-center md:justify-start">
-    {[
-      { val: timeLeft.hours, label: "HOURS" },
-      { val: timeLeft.min, label: "MIN" },
-      { val: timeLeft.sec, label: "SEC" },
-    ].map((t, i) => (
-      <div key={i} className="flex flex-col items-center">
-        <div className="relative w-[80px] h-[80px] perspective">
-          <div className="absolute inset-0 bg-secondary rounded-lg 
-                          flex items-center justify-center
-                          text-3xl font-bold text-orange-400
-                          shadow-[0_0_12px_rgba(255,165,0,0.3)]
-                          animate-flip">
-            {String(t.val).padStart(2, "0")}
-          </div>
+      <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
+        
+        {/* Top Badge: Smaller on mobile */}
+        <div className="inline-block bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 text-[10px] md:text-sm font-semibold mb-6">
+          2-Day Live Workshop • 30,000+ Cases Reversed • <span className="text-yellow-400">⭐ 4.6</span>
         </div>
-        <span className="text-[10px] mt-2 text-muted-foreground">
-          {t.label}
-        </span>
-      </div>
-    ))}
-  </div>
 
-</div>
+        {/* Main Headline: Scaled down for mobile responsiveness */}
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.15] mb-6 px-2">
+          Dard ko bolo <span className="text-yellow-400">bye</span>, <br className="hidden md:block" />
+          aaram ko bolo <span className="text-yellow-400">hi</span>
+        </h1>
+
+        {/* Sub-headlines: Merged and compact */}
+        <div className="space-y-2 mb-8 md:mb-10 px-4">
+          <p className="text-base md:text-xl font-medium opacity-95">
+            without ever stepping into a Clinic
+          </p>
+          <p className="text-xs md:text-base opacity-80 max-w-xl mx-auto leading-relaxed">
+            Non-Invasive therapy for busy professionals & entrepreneurs to feel like your best self again.
+          </p>
+        </div>
+
+        {/* CTA Card: Tighter padding and more compact */}
+        <div className="max-w-lg mx-auto bg-white/10 backdrop-blur-xl rounded-3xl p-5 md:p-8 border border-white/10 shadow-2xl">
+          <div className="mb-5">
+            <h3 className="text-lg md:text-2xl font-bold mb-1">
+              {formatDateWithSuffix(day1)} & {formatDateWithSuffix(day2)}
+            </h3>
+            <p className="text-[11px] md:text-sm opacity-90 uppercase tracking-wider">
+              {formatTime(day1)} & {formatTime(day2)} | Hindi & English
+            </p>
           </div>
 
-          {/* RIGHT VIDEO */}
-          <div className="flex justify-center">
-  <div className="relative rounded-2xl overflow-hidden shadow-glow border border-border bg-card w-full max-w-[400px]">
+          <Button 
+            onClick={handleBooking}
+            className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-base md:text-xl font-black py-6 md:py-7 rounded-xl shadow-lg transition-all active:scale-95 mb-4"
+          >
+            BOOK NOW — Sirf 41 Seats!
+          </Button>
+          
+          <p className="text-[10px] font-bold tracking-[0.1em] uppercase opacity-70 mb-6">
+            Full Hone Par Booking Band!
+          </p>
 
-    <video
-      ref={videoRef}
-      className="w-full aspect-[9/16] object-cover"
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="auto"
-    >
-      <source src="/videos/saurabh-intro.mp4" type="video/mp4" />
-    </video>
-
-    {/* Mute Toggle Icon */}
-    <button
-      onClick={toggleMute}
-      className="absolute bottom-4 right-4 
-                 bg-black/50 backdrop-blur-md 
-                 p-3 rounded-full 
-                 hover:bg-black/70 transition"
-    >
-      {isMuted ? (
-        <VolumeX className="w-5 h-5 text-white" />
-      ) : (
-        <Volume2 className="w-5 h-5 text-white" />
-      )}
-    </button>
-
-  </div>
-</div>
+          {/* Compact Timer */}
+          <div className="flex justify-center items-center gap-4 md:gap-8 border-t border-white/10 pt-5">
+             <div className="text-center">
+                <div className="text-2xl md:text-3xl font-black text-yellow-400">{timeLeft.hours}</div>
+                <div className="text-[9px] opacity-60 font-bold uppercase">Hours</div>
+             </div>
+             <div className="text-xl opacity-30">:</div>
+             <div className="text-center">
+                <div className="text-2xl md:text-3xl font-black text-yellow-400">{timeLeft.min}</div>
+                <div className="text-[9px] opacity-60 font-bold uppercase">Mins</div>
+             </div>
+             <div className="text-xl opacity-30">:</div>
+             <div className="text-center">
+                <div className="text-2xl md:text-3xl font-black text-yellow-400">{timeLeft.sec}</div>
+                <div className="text-[9px] opacity-60 font-bold uppercase">Secs</div>
+             </div>
+          </div>
         </div>
       </div>
     </section>

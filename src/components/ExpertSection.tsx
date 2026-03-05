@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Check, ArrowRight } from "lucide-react"; // Matching Workshop icons
 import celebrity1 from "@/assets/celebrity-1.webp";
 import celebrity2 from "@/assets/celebrity-2.webp";
 import celebrity3 from "@/assets/celebrity-3.webp";
@@ -7,66 +8,56 @@ import AnimatedSection from "./AnimatedSection";
 const ExpertSection = () => {
   const images = [celebrity1, celebrity2, celebrity3];
   const [active, setActive] = useState(0);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef(null);
 
-  // Auto scroll
+  // Auto scroll - Logic unchanged
   useEffect(() => {
     const interval = setInterval(() => {
       const container = scrollRef.current;
       if (!container) return;
-
-      const cardWidth =
-        container.firstElementChild?.clientWidth || container.offsetWidth;
-
+      const cardWidth = container.firstElementChild?.clientWidth || container.offsetWidth;
       const nextIndex = (active + 1) % images.length;
-
-      container.scrollTo({
-        left: cardWidth * nextIndex,
-        behavior: "smooth",
-      });
-
+      container.scrollTo({ left: cardWidth * nextIndex, behavior: "smooth" });
       setActive(nextIndex);
     }, 3000);
-
     return () => clearInterval(interval);
   }, [active, images.length]);
 
-  // Detect manual scroll
   const handleScroll = () => {
     const container = scrollRef.current;
     if (!container) return;
-
-    const cardWidth =
-      container.firstElementChild?.clientWidth || container.offsetWidth;
-
+    const cardWidth = container.firstElementChild?.clientWidth || container.offsetWidth;
     const index = Math.round(container.scrollLeft / cardWidth);
     setActive(index);
   };
 
   return (
-    <section className="mt-1 md:mt-0 py-1 md:py-4 px-4">
-      <div className="max-w-6xl mx-auto bg-secondary/30 rounded-2xl px-6 md:px-10 py-8 md:py-12">
+    <section className="bg-white mt-1 md:mt-0 py-1 md:py-4 px-4">
+      {/* Container background changed to slate-50 */}
+      <div className="max-w-6xl mx-auto bg-slate-50 border border-slate-100 rounded-2xl px-6 md:px-10 py-8 md:py-12">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
-            <p className="text-primary text-center text-2xl font-semibold mb-2">
+            <p className="text-[#0047AB] text-center text-sm font-bold uppercase tracking-widest mb-2">
               Meet Your Expert
             </p>
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
-              Hi, Main Sourobh Kulkorni
+            <h2 className="text-2xl md:text-4xl font-black text-center mb-12 text-slate-900">
+              Hi, Main <span className="text-[#0047AB]">Sourobh Kulkorni</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              {/* Text Content Block */}
               <div>
-                <p className="text-blue-100 mb-4 text-sm md:text-base leading-relaxed">
-                  Main Sourobh Kulkorni hoon, FM4 Therapy ka founder aur India ki only government-patented, 4-phase pain relief system ka creator. Certified Health Care Professional, Nutritionist, Diet Consultant, Personal Trainer, aur Rehabilitation Specialist hoon international recognition ke saath.
+                <p className="text-slate-600 mb-4 text-sm md:text-base font-medium leading-relaxed">
+                  Main Sourobh Kulkorni hoon, FM4 Therapy ka founder aur India ki only government-patented, 4-phase pain relief system ka creator. Certified Health Care Professional, Nutritionist, aur Rehabilitation Specialist hoon.
                 </p>
-                <p className="text-blue-100 mb-6 text-sm md:text-base leading-relaxed">
-                  FM4 Therapy government-patented hai, India mein scientifically validated 4-phase treatment hai jo spine, knee, aur neck pain ki root causes ko target karta hai bina medicines, surgeries, ya traditional physiotherapy ke.
+                <p className="text-slate-600 mb-6 text-sm md:text-base font-medium leading-relaxed">
+                  FM4 Therapy government-patented hai, India mein scientifically validated 4-phase treatment hai jo spine, knee, aur neck pain ki root causes ko target karta hai.
                 </p>
 
-                <div className="card-gradient border border-primary/30 rounded-xl p-4 mb-6 shadow-glow">
-                  <p className="text-primary font-bold">
-                    Amazing Performer in Fitness Industry 2024
+                {/* Award Card - Styled like Workshop components */}
+                <div className="bg-[#0047AB] rounded-xl p-4 mb-6 shadow-lg">
+                  <p className="text-white font-bold text-sm md:text-base">
+                    🏆 Amazing Performer in Fitness Industry 2024
                   </p>
                 </div>
 
@@ -78,13 +69,13 @@ const ExpertSection = () => {
                     "Government-patented FM4 Therapy",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <span className="text-primary flex-shrink-0">✓</span>
-                      <span className="text-sm text-foreground">{item}</span>
+                      <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0 stroke-[3px]" />
+                      <span className="text-sm text-slate-800 font-bold">{item}</span>
                     </div>
                   ))}
                 </div>
 
-                <h3 className="text-foreground font-bold mb-4">
+                <h3 className="text-slate-900 font-black mb-4 uppercase text-sm tracking-tight">
                   Sourobh Ka Approach Kaam Kyun Karta Hai:
                 </h3>
                 <div className="space-y-2">
@@ -95,24 +86,24 @@ const ExpertSection = () => {
                     "Natural movement patterns restore karna",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <span className="text-primary flex-shrink-0">→</span>
-                      <span className="text-sm text-blue-100">{item}</span>
+                      <ArrowRight className="text-[#0047AB] w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-slate-600 font-semibold">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Photos - same size, same layout, only auto scroll added */}
+              {/* Photos Block - Structure/Dimensions exactly as provided */}
               <div>
                 <div
                   ref={scrollRef}
                   onScroll={handleScroll}
                   className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar snap-x snap-mandatory scroll-smooth"
                 >
-                  {[celebrity1, celebrity2, celebrity3].map((img, i) => (
+                  {images.map((img, i) => (
                     <div
                       key={i}
-                      className="rounded-xl overflow-hidden shadow-card min-w-[85vw] w-[85vw] sm:min-w-[320px] sm:w-[320px] md:min-w-[380px] md:w-[380px] lg:min-w-[420px] lg:w-[420px] snap-center flex-shrink-0"
+                      className="rounded-xl overflow-hidden border-4 border-white shadow-xl min-w-[85vw] w-[85vw] sm:min-w-[320px] sm:w-[320px] md:min-w-[380px] md:w-[380px] lg:min-w-[420px] lg:w-[420px] snap-center flex-shrink-0"
                     >
                       <img
                         src={img}
@@ -130,8 +121,8 @@ const ExpertSection = () => {
                       key={i}
                       className={`h-2 rounded-full transition-all duration-300 ${
                         active === i
-                          ? "w-6 bg-primary"
-                          : "w-2 bg-muted-foreground/40"
+                          ? "w-6 bg-[#0047AB]"
+                          : "w-2 bg-slate-300"
                       }`}
                     />
                   ))}
