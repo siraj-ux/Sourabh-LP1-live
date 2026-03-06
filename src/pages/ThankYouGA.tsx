@@ -18,12 +18,14 @@ const ThankYouGA = () => {
   // Track PageView only - Logic preserved
   // useNonFBPixel({ eventName: "PageView" });
 
-  // UPDATED: Default dates to 7th March 8PM and 8th March 10AM
-  const day1 = config?.day1_datetime || "2025-03-07T20:00:00";
-  const day2 = config?.day2_datetime || "2025-03-08T10:00:00";
-  
+  // UPDATED DATE & TIME (Fallback)
+  const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
+  const day2 = config?.day2_datetime || "2026-03-08T10:00:00";
+
+  // UPDATED WHATSAPP LINK
   const whatsappLink =
-    config?.whatsapp_link || "https://chat.whatsapp.com/EYhPWBybzoO2xP35GbKKJ0";
+    config?.whatsapp_link ||
+    "https://chat.whatsapp.com/LstNYgmemz51zgzgGYazi";
 
   useEffect(() => {
     const t = setTimeout(() => setConfetti(false), 4000);
@@ -64,21 +66,23 @@ const ThankYouGA = () => {
                 Aapki Seat Successfully Book Ho Gayi Hai!
               </h2>
               <p className="text-slate-500 font-medium text-sm md:text-base leading-relaxed">
-                FM4 Therapy Live Workshop ke liye aapka registration confirm ho gaya hai. 
+                FM4 Therapy Live Workshop ke liye aapka registration confirm ho gaya hai.
                 Workshop details aapke email pe bhej diye jayenge.
               </p>
             </div>
 
             {/* Workshop Details Card */}
             <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 mb-8 text-left space-y-5">
+              
               <div className="flex items-center gap-4">
                 <div className="bg-white p-3 rounded-xl shadow-sm border border-slate-100">
                   <FaCalendarAlt className="text-[#0047AB] text-xl" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Date
+                  </p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
-                    {/* Displays: 7th March & 8th March */}
                     {formatDateWithSuffix(day1)} & {formatDateWithSuffix(day2)}
                   </p>
                 </div>
@@ -89,9 +93,10 @@ const ThankYouGA = () => {
                   <FaClock className="text-[#0047AB] text-xl" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Timing</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Timing
+                  </p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
-                    {/* Displays: Day 1: 8:00 PM | Day 2: 10:00 AM */}
                     Day 1: {formatTime(day1)} | Day 2: {formatTime(day2)}
                   </p>
                 </div>
@@ -102,12 +107,15 @@ const ThankYouGA = () => {
                   <FaGlobe className="text-[#0047AB] text-xl" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Platform</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Platform
+                  </p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
                     Online Live Workshop (Hindi & English)
                   </p>
                 </div>
               </div>
+
             </div>
 
             {/* WhatsApp CTA Section */}
@@ -115,6 +123,7 @@ const ThankYouGA = () => {
               <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
                 Most Important Step
               </p>
+
               <a
                 href={whatsappLink}
                 target="_blank"
@@ -124,6 +133,7 @@ const ThankYouGA = () => {
                 <FaWhatsapp className="text-2xl" />
                 Join WhatsApp Group →
               </a>
+
               <div className="flex items-center justify-center gap-2 text-[11px] font-bold text-[#0047AB] opacity-80 italic">
                 <span>Meeting link isi group mein share kiya jayega!</span>
               </div>

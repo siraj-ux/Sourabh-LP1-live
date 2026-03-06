@@ -1,22 +1,70 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { Play, Clock, Calendar } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
+const SHEETS_URL =
+  "https://script.google.com/macros/s/AKfycbzpttKDUxieudBnZV1NwfQFtAaBvLvIU5zpip5NKfhzlVqQrDO7tR2VIi8e-j1cgVXjkA/exec";
+
+const CACHE_KEY = "workshopConfig";
+
+// Converts Google Sheets date "3/7/2026 20:00:00" → "2026-03-07T20:00:00"
+function normalizeDate(value: string): string {
+  if (/^\d{1,2}\/\d{1,2}\/\d{4}/.test(value)) {
+    const [datePart, timePart = "00:00:00"] = value.split(" ");
+    const [month, day, year] = datePart.split("/");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${timePart}`;
+  }
+  return value;
+}
+
 const HeroSection = () => {
-  const { config } = useWorkshopConfig();
+  const [config, setConfig] = useState<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
-  const paymentLink = config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
+  const paymentLink =
+    config?.payment_link ||
+    "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
-  // Initial state set to 14 Hours
-  const [timeLeft, setTimeLeft] = useState({ hours: "14", min: "00", sec: "00" });
+  const [timeLeft, setTimeLeft] = useState({
+    hours: "14",
+    min: "00",
+    sec: "00",
+  });
 
+  // Fetch config from Google Sheet
   useEffect(() => {
-    // 14 hours in total seconds
-    let totalSecondsRemaining = 14 * 60 * 60; 
+    const loadConfig = async () => {
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+
+        if (cached) {
+          setConfig(JSON.parse(cached));
+          return;
+        }
+
+        const res = await fetch(SHEETS_URL);
+        const data = await res.json();
+
+        const formatted = {
+          ...data,
+          day1_datetime: normalizeDate(data.day1_datetime),
+        };
+
+        localStorage.setItem(CACHE_KEY, JSON.stringify(formatted));
+        setConfig(formatted);
+      } catch (err) {
+        console.error("Config fetch failed", err);
+      }
+    };
+
+    loadConfig();
+  }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    let totalSecondsRemaining = 14 * 60 * 60;
 
     const updateTimer = () => {
       if (totalSecondsRemaining <= 0) {
@@ -38,14 +86,16 @@ const HeroSection = () => {
     };
 
     const timerInterval = setInterval(updateTimer, 1000);
+
     return () => clearInterval(timerInterval);
   }, []);
 
   const handleBooking = () => {
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
+    if ((window as any).fbq) {
+      (window as any).fbq("track", "AddToCart");
+      (window as any).fbq("track", "Subscribe");
     }
+
     setTimeout(() => {
       window.location.href = paymentLink;
     }, 150);
@@ -57,16 +107,19 @@ const HeroSection = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto text-center text-white w-full">
         <div className="inline-block bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-3 py-0.5 text-[9px] md:text-sm font-semibold mb-2 md:mb-4">
-          2-Day Live Workshop • 30,000+ Cases Reversed • <span className="text-yellow-400">⭐ 4.6</span>
+          2-Day Live Workshop • 30,000+ Cases Reversed •{" "}
+          <span className="text-yellow-400">⭐ 4.6</span>
         </div>
 
         <h1 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] mb-1.5 md:mb-4 px-2">
-          Spine, Knee Aur Neck Pain Se <span className="text-yellow-400">Natural Relief</span> Kaise Paayein?
+          Spine, Knee Aur Neck Pain Se{" "}
+          <span className="text-yellow-400">Natural Relief</span> Kaise Paayein?
         </h1>
 
         <div className="mb-2 md:mb-6 px-4">
           <p className="text-[11px] md:text-xl font-medium opacity-95 max-w-3xl mx-auto leading-tight md:leading-relaxed">
-            Long-Term Relief Ke Liye, Bina Medicines, Surgery, Physio, Chiro Ya Oil Massages Ke.
+            Long-Term Relief Ke Liye, Bina Medicines, Surgery, Physio, Chiro Ya
+            Oil Massages Ke.
           </p>
         </div>
 
@@ -83,41 +136,40 @@ const HeroSection = () => {
         <div className="flex flex-col items-center gap-3 md:gap-10 w-full">
           {/* Main Booking Box */}
           <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
-            
-            {/* DATE/TIME SECTION WITH INCREASED FONT SIZES */}
+
+            {/* DATE & TIME (STATIC UI kept same) */}
             <div className="grid grid-cols-2 gap-1.5 md:gap-4 mb-3 md:mb-5">
-              
-              {/* Date Card */}
+
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Calendar className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tight md:tracking-wide">
+                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase">
                     Date
                   </p>
-                  <p className="text-[10px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
+                  <p className="text-[10px] md:text-[17px] font-black text-gray-900">
                     7th March &<br />
                     8th March
                   </p>
                 </div>
               </div>
 
-              {/* Time Card */}
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Clock className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tight md:tracking-wide">
+                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase">
                     Time
                   </p>
-                  <p className="text-[10px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
+                  <p className="text-[10px] md:text-[17px] font-black text-gray-900">
                     Day 1: 8:00 PM<br />
                     Day 2: 10:00 AM
                   </p>
                 </div>
               </div>
+
             </div>
 
             <Button
@@ -131,33 +183,49 @@ const HeroSection = () => {
               Full Hone Par Booking Band!
             </p>
 
-            {/* TIMER DISPLAY (COUNTING FROM 14 HOURS) */}
+            {/* TIMER */}
             <div className="flex justify-center items-center gap-3 md:gap-8 border-t border-white/10 pt-2 md:pt-3">
               <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400 leading-none">{timeLeft.hours}</div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase mt-0.5">Hours</div>
+                <div className="text-lg md:text-3xl font-black text-yellow-400">
+                  {timeLeft.hours}
+                </div>
+                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
+                  Hours
+                </div>
               </div>
-              <div className="text-md opacity-30 mb-1">:</div>
+
+              <div className="text-md opacity-30">:</div>
+
               <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400 leading-none">{timeLeft.min}</div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase mt-0.5">Mins</div>
+                <div className="text-lg md:text-3xl font-black text-yellow-400">
+                  {timeLeft.min}
+                </div>
+                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
+                  Mins
+                </div>
               </div>
-              <div className="text-md opacity-30 mb-1">:</div>
+
+              <div className="text-md opacity-30">:</div>
+
               <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400 leading-none">{timeLeft.sec}</div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase mt-0.5">Secs</div>
+                <div className="text-lg md:text-3xl font-black text-yellow-400">
+                  {timeLeft.sec}
+                </div>
+                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
+                  Secs
+                </div>
               </div>
             </div>
           </div>
 
+          {/* VIDEO SECTION */}
           <AnimatedSection className="w-full">
             <div className="w-full md:max-w-3xl mx-auto px-0">
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-[1.2rem] md:rounded-[2rem] blur opacity-25"></div>
-                <div className="relative w-full aspect-video bg-transparent rounded-[1.2rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/15">
+                <div className="relative w-full aspect-video rounded-[1.2rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/15">
                   {!isPlaying ? (
                     <div
-                      className="absolute inset-0 w-full h-full cursor-pointer group/thumb"
+                      className="absolute inset-0 cursor-pointer"
                       onClick={() => setIsPlaying(true)}
                     >
                       <img
@@ -165,27 +233,19 @@ const HeroSection = () => {
                         alt="Video Preview"
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover/thumb:bg-black/30 transition-colors duration-300">
-                        <div className="bg-yellow-400 text-black p-2.5 md:p-6 rounded-full shadow-xl">
-                          <Play size={20} fill="currentColor" className="md:w-8 md:h-8 ml-0.5 md:ml-1" />
-                        </div>
-                      </div>
                     </div>
                   ) : (
                     <iframe
                       src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1"
                       allow="autoplay; fullscreen"
                       className="absolute inset-0 w-full h-full border-0"
-                      title="Workshop Intro Video"
                     ></iframe>
                   )}
                 </div>
               </div>
-              <p className="mt-2 md:mt-4 text-[9px] md:text-xs font-bold opacity-70 uppercase tracking-widest text-yellow-400">
-                Dekhiye FM4 Therapy Live Action Mein
-              </p>
             </div>
           </AnimatedSection>
+
         </div>
       </div>
     </section>
