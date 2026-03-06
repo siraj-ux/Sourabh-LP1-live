@@ -18,8 +18,10 @@ const ThankYouGA = () => {
   // Track PageView only - Logic preserved
   // useNonFBPixel({ eventName: "PageView" });
 
-  const day1 = config?.day1_datetime || "2026-02-21T20:00:00";
-  const day2 = config?.day2_datetime || "2026-02-22T10:00:00";
+  // UPDATED: Default dates to 7th March 8PM and 8th March 10AM
+  const day1 = config?.day1_datetime || "2025-03-07T20:00:00";
+  const day2 = config?.day2_datetime || "2025-03-08T10:00:00";
+  
   const whatsappLink =
     config?.whatsapp_link || "https://chat.whatsapp.com/EYhPWBybzoO2xP35GbKKJ0";
 
@@ -76,6 +78,7 @@ const ThankYouGA = () => {
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date</p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
+                    {/* Displays: 7th March & 8th March */}
                     {formatDateWithSuffix(day1)} & {formatDateWithSuffix(day2)}
                   </p>
                 </div>
@@ -88,6 +91,7 @@ const ThankYouGA = () => {
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Timing</p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
+                    {/* Displays: Day 1: 8:00 PM | Day 2: 10:00 AM */}
                     Day 1: {formatTime(day1)} | Day 2: {formatTime(day2)}
                   </p>
                 </div>

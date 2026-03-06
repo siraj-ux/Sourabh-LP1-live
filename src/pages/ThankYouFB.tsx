@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
@@ -14,16 +14,10 @@ const ThankYouFB = () => {
   const { config } = useWorkshopConfig();
   const [confetti, setConfetti] = useState(true);
 
-  // useEffect(() => {
-  //   if (window.fbq) {
-  //     window.fbq("init", "945210531500711");
-  //     window.fbq("track", "PageView");
-  //   }
-  //   localStorage.removeItem("lastRegistration");
-  // }, []);
-
-  const day1 = config?.day1_datetime || "2026-02-21T20:00:00";
-  const day2 = config?.day2_datetime || "2026-02-22T10:00:00";
+  // Updated fallback dates to 7th March 2025 8:00 PM and 8th March 2025 10:00 AM
+  const day1 = config?.day1_datetime || "2025-03-07T20:00:00";
+  const day2 = config?.day2_datetime || "2025-03-08T10:00:00";
+  
   const whatsappLink =
     config?.whatsapp_link || "https://chat.whatsapp.com/EYhPWBybzoO2xP35GbKKJ0";
 
@@ -79,6 +73,7 @@ const ThankYouFB = () => {
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date</p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
+                    {/* Shows: 7th March & 8th March */}
                     {formatDateWithSuffix(day1)} & {formatDateWithSuffix(day2)}
                   </p>
                 </div>
@@ -91,6 +86,7 @@ const ThankYouFB = () => {
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Timing</p>
                   <p className="font-bold text-slate-800 text-sm md:text-base">
+                    {/* Shows: Day 1: 8:00 PM | Day 2: 10:00 AM */}
                     Day 1: {formatTime(day1)} | Day 2: {formatTime(day2)}
                   </p>
                 </div>

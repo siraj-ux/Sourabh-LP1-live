@@ -1,5 +1,5 @@
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
-import { ArrowRight, Zap } from "lucide-react"; 
+import { ArrowRight, Zap, Clock } from "lucide-react"; 
 
 const StickyFooter = () => {
   const { config } = useWorkshopConfig();
@@ -16,15 +16,12 @@ const StickyFooter = () => {
     >
       <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         
-        {/* Left Side: Pricing & Scarcity (Small & Clean) */}
+        {/* Left Side: Pricing & Scarcity (Unchanged) */}
         <div className="flex flex-col">
           <div className="flex items-center gap-2 mb-0.5">
             <span className="text-xl md:text-2xl font-black text-slate-900 leading-none">
               ₹99
             </span>
-            {/* <span className="text-xs md:text-sm text-slate-400 line-through font-medium">
-              ₹499
-            </span> */}
             <span className="bg-orange-50 text-orange-600 text-[9px] font-black px-1.5 py-0.5 rounded uppercase border border-orange-100 hidden sm:block">
               80% OFF
             </span>
@@ -38,26 +35,34 @@ const StickyFooter = () => {
           </p>
         </div>
 
-        {/* Right Side: The Button (Reduced Size & Premium Style) */}
-        <button
-          onClick={() => {
-            if (window.fbq) {
-              window.fbq("track", "AddToCart");
-              window.fbq("track", "Subscribe");
-            }
-            // small delay for tracking - Logic unchanged
-            setTimeout(() => {
-              window.location.href = paymentLink;
-            }, 150);
-          }}
-          className="group flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 rounded-full 
-          bg-[#0047AB] text-white font-black text-xs md:text-sm uppercase tracking-tight
-          shadow-lg shadow-[#0047AB]/20 transition-all duration-300
-          hover:scale-[1.03] active:scale-95 hover:bg-[#003580]"
-        >
-          <span>Book My Seat</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </button>
+        {/* Right Side: The Button & Urgency Text Below */}
+        <div className="flex flex-col items-center gap-1.5">
+          <button
+            onClick={() => {
+              // @ts-ignore
+              if (window.fbq) {
+                window.fbq("track", "AddToCart");
+                window.fbq("track", "Subscribe");
+              }
+              // small delay for tracking
+              setTimeout(() => {
+                window.location.href = paymentLink;
+              }, 150);
+            }}
+            className="group flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 rounded-full 
+            bg-[#0047AB] text-white font-black text-xs md:text-sm uppercase tracking-tight
+            shadow-lg shadow-[#0047AB]/20 transition-all duration-300
+            hover:scale-[1.03] active:scale-95 hover:bg-[#003580]"
+          >
+            <span>Book My Seat</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+          
+          {/* Urgency Text specifically below the button */}
+          <p className="text-[8px] md:text-[10px] text-red-600 font-black uppercase tracking-widest flex items-center gap-1 animate-pulse">
+            <Clock size={10} className="mb-0.5" /> Bookings Close Today!
+          </p>
+        </div>
 
       </div>
     </div>
