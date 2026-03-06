@@ -14,13 +14,13 @@ const ThankYouFB = () => {
   const { config } = useWorkshopConfig();
   const [confetti, setConfetti] = useState(true);
 
-  useEffect(() => {
-    if (window.fbq) {
-      window.fbq("init", "945210531500711");
-      window.fbq("track", "PageView");
-    }
-    localStorage.removeItem("lastRegistration");
-  }, []);
+  // useEffect(() => {
+  //   if (window.fbq) {
+  //     window.fbq("init", "945210531500711");
+  //     window.fbq("track", "PageView");
+  //   }
+  //   localStorage.removeItem("lastRegistration");
+  // }, []);
 
   const day1 = config?.day1_datetime || "2026-02-21T20:00:00";
   const day2 = config?.day2_datetime || "2026-02-22T10:00:00";
