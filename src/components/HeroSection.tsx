@@ -8,33 +8,38 @@ const HeroSection = () => {
   const { config } = useWorkshopConfig();
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const day1 = config?.day1_datetime || "2025-03-07T20:00:00";
+  const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
   const paymentLink = config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
-  const [timeLeft, setTimeLeft] = useState({ hours: "00", min: "00", sec: "00" });
+  // Initial state set to 14 Hours
+  const [timeLeft, setTimeLeft] = useState({ hours: "14", min: "00", sec: "00" });
 
   useEffect(() => {
-    const target = new Date(day1).getTime();
+    // 14 hours in total seconds
+    let totalSecondsRemaining = 14 * 60 * 60; 
 
     const updateTimer = () => {
-      const now = new Date().getTime();
-      const diff = target - now;
-      if (diff > 0) {
-        const totalHours = Math.floor(diff / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-        setTimeLeft({
-          hours: totalHours.toString().padStart(2, "0"),
-          min: mins.toString().padStart(2, "0"),
-          sec: secs.toString().padStart(2, "0"),
-        });
+      if (totalSecondsRemaining <= 0) {
+        clearInterval(timerInterval);
+        return;
       }
+
+      totalSecondsRemaining -= 1;
+
+      const hrs = Math.floor(totalSecondsRemaining / 3600);
+      const mins = Math.floor((totalSecondsRemaining % 3600) / 60);
+      const secs = totalSecondsRemaining % 60;
+
+      setTimeLeft({
+        hours: hrs.toString().padStart(2, "0"),
+        min: mins.toString().padStart(2, "0"),
+        sec: secs.toString().padStart(2, "0"),
+      });
     };
 
-    updateTimer();
     const timerInterval = setInterval(updateTimer, 1000);
     return () => clearInterval(timerInterval);
-  }, [day1]);
+  }, []);
 
   const handleBooking = () => {
     if (window.fbq) {
@@ -79,7 +84,7 @@ const HeroSection = () => {
           {/* Main Booking Box */}
           <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
             
-            {/* DATE/TIME SECTION */}
+            {/* DATE/TIME SECTION WITH INCREASED FONT SIZES */}
             <div className="grid grid-cols-2 gap-1.5 md:gap-4 mb-3 md:mb-5">
               
               {/* Date Card */}
@@ -88,11 +93,9 @@ const HeroSection = () => {
                   <Calendar className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                  {/* LABEL SIZE INCREASED */}
                   <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tight md:tracking-wide">
                     Date
                   </p>
-                  {/* MAIN TEXT SIZE INCREASED */}
                   <p className="text-[10px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
                     7th March &<br />
                     8th March
@@ -106,18 +109,15 @@ const HeroSection = () => {
                   <Clock className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                   {/* LABEL SIZE INCREASED */}
                   <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tight md:tracking-wide">
                     Time
                   </p>
-                   {/* MAIN TEXT SIZE INCREASED */}
                   <p className="text-[10px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
                     Day 1: 8:00 PM<br />
                     Day 2: 10:00 AM
                   </p>
                 </div>
               </div>
-
             </div>
 
             <Button
@@ -131,6 +131,7 @@ const HeroSection = () => {
               Full Hone Par Booking Band!
             </p>
 
+            {/* TIMER DISPLAY (COUNTING FROM 14 HOURS) */}
             <div className="flex justify-center items-center gap-3 md:gap-8 border-t border-white/10 pt-2 md:pt-3">
               <div className="text-center">
                 <div className="text-lg md:text-3xl font-black text-yellow-400 leading-none">{timeLeft.hours}</div>
