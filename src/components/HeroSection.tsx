@@ -27,8 +27,9 @@ const HeroSection = () => {
     config?.payment_link ||
     "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
+  // Initial State set to 5 Hours
   const [timeLeft, setTimeLeft] = useState({
-    hours: "14",
+    hours: "05",
     min: "00",
     sec: "00",
   });
@@ -62,9 +63,9 @@ const HeroSection = () => {
     loadConfig();
   }, []);
 
-  // Countdown timer
+  // Countdown timer - Set to 5 hours (5 * 3600 seconds)
   useEffect(() => {
-    let totalSecondsRemaining = 14 * 60 * 60;
+    let totalSecondsRemaining = 5 * 60 * 60;
 
     const updateTimer = () => {
       if (totalSecondsRemaining <= 0) {
@@ -137,33 +138,35 @@ const HeroSection = () => {
           {/* Main Booking Box */}
           <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
 
-            {/* DATE & TIME (STATIC UI kept same) */}
+            {/* COMPACT DATE & TIME - LOGO LEFT, TEXT RIGHT */}
             <div className="grid grid-cols-2 gap-1.5 md:gap-4 mb-3 md:mb-5">
 
+              {/* Date Card */}
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Calendar className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase">
+                  <p className="text-[7px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tighter md:tracking-normal">
                     Date
                   </p>
-                  <p className="text-[10px] md:text-[17px] font-black text-gray-900">
+                  <p className="text-[8.5px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
                     7th March &<br />
                     8th March
                   </p>
                 </div>
               </div>
 
+              {/* Time Card */}
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Clock className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] md:text-[13px] font-bold text-gray-500 uppercase">
+                  <p className="text-[7px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tighter md:tracking-normal">
                     Time
                   </p>
-                  <p className="text-[10px] md:text-[17px] font-black text-gray-900">
+                  <p className="text-[8.5px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
                     Day 1: 8:00 PM<br />
                     Day 2: 10:00 AM
                   </p>
