@@ -128,7 +128,7 @@ const HeroSection = () => {
           <img
             src="/2.png"
             alt="Google Reviews"
-            className="h-7 md:h-10 w-auto"
+            className="h-7 md:h-10 w-auto rounded-lg"
           />
         </div>
 
