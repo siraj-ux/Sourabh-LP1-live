@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play, Clock, Calendar } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbzpttKDUxieudBnZV1NwfQFtAaBvLvIU5zpip5NKfhzlVqQrDO7tR2VIi8e-j1cgVXjkA/exec";
@@ -9,7 +10,7 @@ const SHEETS_URL =
 const CACHE_KEY = "workshopConfig";
 
 // Converts Google Sheets date "3/7/2026 20:00:00" → "2026-03-07T20:00:00"
-function normalizeDate(value: string): string {
+function normalizeDate(value) {
   if (/^\d{1,2}\/\d{1,2}\/\d{4}/.test(value)) {
     const [datePart, timePart = "00:00:00"] = value.split(" ");
     const [month, day, year] = datePart.split("/");
@@ -19,10 +20,11 @@ function normalizeDate(value: string): string {
 }
 
 const HeroSection = () => {
-  const [config, setConfig] = useState<any>(null);
+  const [config, setConfig] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
+  const day2 = config?.day2_datetime || "2026-03-08T10:00:00";
   const paymentLink =
     config?.payment_link ||
     "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
@@ -33,14 +35,13 @@ const HeroSection = () => {
     sec: "00",
   });
 
+  // FETCH CONFIG
   useEffect(() => {
     const loadConfig = async () => {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
-
         if (cached) {
           setConfig(JSON.parse(cached));
-          return;
         }
 
         const res = await fetch(SHEETS_URL);
@@ -49,6 +50,7 @@ const HeroSection = () => {
         const formatted = {
           ...data,
           day1_datetime: normalizeDate(data.day1_datetime),
+          day2_datetime: normalizeDate(data.day2_datetime),
         };
 
         localStorage.setItem(CACHE_KEY, JSON.stringify(formatted));
@@ -61,14 +63,12 @@ const HeroSection = () => {
     loadConfig();
   }, []);
 
+  // 5 HOUR COUNTDOWN
   useEffect(() => {
     let totalSecondsRemaining = 5 * 60 * 60;
 
     const updateTimer = () => {
-      if (totalSecondsRemaining <= 0) {
-        clearInterval(timerInterval);
-        return;
-      }
+      if (totalSecondsRemaining <= 0) return;
 
       totalSecondsRemaining -= 1;
 
@@ -89,9 +89,9 @@ const HeroSection = () => {
   }, []);
 
   const handleBooking = () => {
-    if ((window as any).fbq) {
-      (window as any).fbq("track", "AddToCart");
-      (window as any).fbq("track", "Subscribe");
+    if (window.fbq) {
+      window.fbq("track", "AddToCart");
+      window.fbq("track", "Subscribe");
     }
 
     setTimeout(() => {
@@ -101,14 +101,17 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-0 flex flex-col items-center bg-[#0047AB] overflow-hidden px-4 py-2 md:py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-600 via-[#0047AB] to-[#003380] opacity-100" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-600 via-[#0047AB] to-[#003380]" />
 
       <div className="relative z-10 max-w-5xl mx-auto text-center text-white w-full">
+
+        {/* BADGE */}
         <div className="inline-block bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-3 py-0.5 text-[9px] md:text-sm font-semibold mb-2 md:mb-4">
-          30,000+ Musculoskeletal Cases Recovered. Restoring Movement. Rebuilding Lives.{" "}
-          <span className="text-yellow-400">⭐ 4.6</span>
+          30,000+ Musculoskeletal Cases Recovered. Restoring Movement. Rebuilding Lives.
+          <span className="text-yellow-400"> ⭐ 4.6</span>
         </div>
 
+        {/* HEADLINE */}
         <h1 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] mb-1.5 md:mb-4 px-2">
           Spine, Knee Aur Neck Pain Se{" "}
           <span className="text-yellow-400">Lasting Relief</span> Kaise Paayein?
@@ -120,133 +123,122 @@ const HeroSection = () => {
           </p>
         </div>
 
+        {/* GOOGLE REVIEW IMAGE */}
         <div className="flex justify-center mb-3 md:mb-8 px-4">
-          <div className="overflow-hidden rounded-lg md:rounded-2xl shadow-lg border border-white/10">
-            <img
-              src="/2.png"
-              alt="4.6 Rating | 1000+ Reviews On Google"
-              className="h-7 md:h-10 w-auto object-contain brightness-110"
-            />
+          <img
+            src="/2.png"
+            alt="Google Reviews"
+            className="h-7 md:h-10 w-auto"
+          />
+        </div>
+
+        {/* BOOKING CARD */}
+        <div className="w-full max-w-lg mx-auto bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
+
+          <div className="grid grid-cols-2 gap-2 md:gap-4 mb-3 md:mb-5">
+
+            {/* DATE */}
+            <div className="bg-white rounded-lg md:rounded-2xl p-2 md:p-4 border shadow-sm flex items-center gap-2">
+              <Calendar className="w-4 h-4 md:w-6 md:h-6 text-gray-700" />
+              <div className="text-left">
+                <p className="text-[9px] md:text-sm font-bold text-gray-500 uppercase">
+                  Date
+                </p>
+                <p className="text-[11px] md:text-lg font-black text-gray-900">
+                  {formatDateWithSuffix(day1)} <br />
+                  {formatDateWithSuffix(day2)}
+                </p>
+              </div>
+            </div>
+
+            {/* TIME */}
+            <div className="bg-white rounded-lg md:rounded-2xl p-2 md:p-4 border shadow-sm flex items-center gap-2">
+              <Clock className="w-4 h-4 md:w-6 md:h-6 text-gray-700" />
+              <div className="text-left">
+                <p className="text-[9px] md:text-sm font-bold text-gray-500 uppercase">
+                  Time
+                </p>
+                <p className="text-[11px] md:text-lg font-black text-gray-900">
+                  Day 1: {formatTime(day1)} <br />
+                  Day 2: {formatTime(day2)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* BOOK BUTTON */}
+          <Button
+            onClick={handleBooking}
+            className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-sm md:text-xl font-black py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg transition-all active:scale-95 mb-1 uppercase"
+          >
+            BOOK NOW — Sirf 41 Seats!
+          </Button>
+
+          {/* COUNTDOWN */}
+          <div className="flex justify-center items-center gap-4 border-t border-white/10 pt-3">
+            <div className="text-center">
+              <div className="text-lg md:text-3xl font-black text-yellow-400">
+                {timeLeft.hours}
+              </div>
+              <div className="text-[8px] uppercase">Hours</div>
+            </div>
+
+            <div className="text-lg">:</div>
+
+            <div className="text-center">
+              <div className="text-lg md:text-3xl font-black text-yellow-400">
+                {timeLeft.min}
+              </div>
+              <div className="text-[8px] uppercase">Mins</div>
+            </div>
+
+            <div className="text-lg">:</div>
+
+            <div className="text-center">
+              <div className="text-lg md:text-3xl font-black text-yellow-400">
+                {timeLeft.sec}
+              </div>
+              <div className="text-[8px] uppercase">Secs</div>
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-3 md:gap-10 w-full">
-          <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
+        {/* VIDEO SECTION */}
+        <AnimatedSection className="w-full mt-6">
+          <div className="w-full md:max-w-3xl mx-auto">
+            <div className="relative aspect-video rounded-[1.2rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/15">
 
-            <div className="grid grid-cols-2 gap-1.5 md:gap-4 mb-3 md:mb-5">
+              {!isPlaying ? (
+                <div
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => setIsPlaying(true)}
+                >
+                  <img
+                    src="/1.webp"
+                    alt="Video Preview"
+                    className="w-full h-full object-cover"
+                  />
 
-              <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
-                <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
-                  <Calendar className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
-                </div>
-                <div className="text-left">
-                  <p className="text-[7px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tighter md:tracking-normal">
-                    Date
-                  </p>
-                  <p className="text-[8.5px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
-                    7th March &<br />
-                    8th March
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
-                <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
-                  <Clock className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
-                </div>
-                <div className="text-left">
-                  <p className="text-[7px] md:text-[13px] font-bold text-gray-500 uppercase tracking-tighter md:tracking-normal">
-                    Time
-                  </p>
-                  <p className="text-[8.5px] md:text-[17px] font-black text-gray-900 leading-[1.1] md:leading-tight">
-                    Day 1: 8:00 PM<br />
-                    Day 2: 10:00 AM
-                  </p>
-                </div>
-              </div>
-
-            </div>
-
-            <Button
-              onClick={handleBooking}
-              className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-sm md:text-xl font-black py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg transition-all active:scale-95 mb-1 uppercase"
-            >
-              BOOK NOW — Sirf 41 Seats!
-            </Button>
-
-            <p className="text-[8px] md:text-[10px] font-bold tracking-widest uppercase opacity-70 mb-2 md:mb-3">
-              Full Hone Par Booking Band!
-            </p>
-
-            {/* TIMER */}
-            <div className="flex justify-center items-center gap-3 md:gap-8 border-t border-white/10 pt-2 md:pt-3">
-              <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400">
-                  {timeLeft.hours}
-                </div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
-                  Hours
-                </div>
-              </div>
-
-              <div className="text-md opacity-30">:</div>
-
-              <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400">
-                  {timeLeft.min}
-                </div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
-                  Mins
-                </div>
-              </div>
-
-              <div className="text-md opacity-30">:</div>
-
-              <div className="text-center">
-                <div className="text-lg md:text-3xl font-black text-yellow-400">
-                  {timeLeft.sec}
-                </div>
-                <div className="text-[7px] md:text-[8px] opacity-60 font-bold uppercase">
-                  Secs
-                </div>
-              </div>
-            </div>
-
-            {/* Smaller Highlight Text */}
-            <p className="mt-2 md:mt-3 text-[9px] md:text-sm font-semibold text-yellow-300">
-              Are you also struggling from <span className="font-bold text-white">spine, knees & neck pain?</span>
-            </p>
-
-          </div>
-
-          <AnimatedSection className="w-full">
-            <div className="w-full md:max-w-3xl mx-auto px-0">
-              <div className="relative group">
-                <div className="relative w-full aspect-video rounded-[1.2rem] md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/15">
-                  {!isPlaying ? (
-                    <div
-                      className="absolute inset-0 cursor-pointer"
-                      onClick={() => setIsPlaying(true)}
-                    >
-                      <img
-                        src="/new-click-bite.png"
-                        alt="Video Preview"
-                        className="w-full h-full object-cover"
-                      />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-yellow-400 text-blue-900 rounded-full p-4 md:p-6 shadow-2xl hover:scale-110 transition-transform">
+                      <Play className="w-6 h-6 md:w-10 md:h-10 fill-current" />
                     </div>
-                  ) : (
-                    <iframe
-                      src="https://player.vimeo.com/video/1109262583?h=9b74413547&autoplay=1"
-                      allow="autoplay; fullscreen"
-                      className="absolute inset-0 w-full h-full border-0"
-                    ></iframe>
-                  )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <iframe
+                  src="https://www.youtube.com/embed/9VoVN6gfhxg?autoplay=1"
+                  title="Workshop Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              )}
             </div>
-          </AnimatedSection>
+          </div>
+        </AnimatedSection>
 
-        </div>
       </div>
     </section>
   );
