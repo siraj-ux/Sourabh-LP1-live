@@ -1,54 +1,59 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { Check } from "lucide-react";
 
 const WorkshopSection = () => {
   const phases = [
-    { 
-      title: "Identify", 
-      text: "Ascertain the Root cause.", 
-      color: "bg-blue-500"
+    {
+      title: "Identify",
+      text: "Ascertain the Root cause.",
+      gradient: "from-blue-600 to-blue-400",
+      accent: "bg-blue-300",
     },
-    { 
-      title: "Release", 
-      text: "Release trigger points, restore movement aur eliminate muscle pain.", 
-      color: "bg-amber-500"
+    {
+      title: "Release",
+      text: "Release trigger points, restore movement aur eliminate muscle pain.",
+      gradient: "from-amber-500 to-orange-400",
+      accent: "bg-amber-300",
     },
-    { 
-      title: "Strengthen", 
-      text: "Regain functional strength in weak muscles.", 
-      color: "bg-emerald-500"
+    {
+      title: "Strengthen",
+      text: "Regain functional strength in weak muscles.",
+      gradient: "from-emerald-600 to-teal-400",
+      accent: "bg-emerald-300",
     },
-    { 
-      title: "Restore", 
-      text: "Restore joint range of motion and muscle flexibility", 
-      color: "bg-indigo-500"
+    {
+      title: "Restore",
+      text: "Restore joint range of motion and muscle flexibility",
+      gradient: "from-indigo-600 to-violet-400",
+      accent: "bg-indigo-300",
     },
   ];
 
   const practicalApps = [
     {
       title: "Morning stiffness prevent karna",
-      img: "/sk/4.jpg"
+      img: "/sk/4.jpg",
     },
     {
       title: "Work ergonomics ko reorganize karke pain-free work ke liye",
-      img: "/sk/5.jpg"
+      img: "/sk/5.jpg",
     },
     {
       title: "Sleep right, recover faster—optimize recovery with proper sleep positions",
-      img: "/sk/6.jpg"
+      img: "/sk/6.jpg",
     },
     {
       title: "Simple lifestyle modifications for lasting pain relief and better mobility",
-      img: "/sk/7.jpg"
-    }
+      img: "/sk/7.jpg",
+    },
   ];
 
   return (
     <section className="bg-white py-12 md:py-20 px-4">
       <div className="max-w-6xl mx-auto space-y-16 md:space-y-24">
-
+        
         {/* ===== TOP INTRO BLOCK ===== */}
         <AnimatedSection>
           <div className="text-center max-w-3xl mx-auto">
@@ -58,8 +63,8 @@ const WorkshopSection = () => {
             <p className="text-slate-500 text-base md:text-lg leading-relaxed">
               Transform Chronic Pain Into Freedom Of Movement By Discovering One Of Its Kind{" "}
               <span className="relative inline-block px-1">
-                <span className="absolute inset-0 bg-[#0047AB]/10 rounded animate-pulse"></span>
-                <span className="relative text-[#0047AB] animate-[pulse_2s_infinite]">
+                <span className="absolute inset-0 bg-[#0047AB]/10 rounded"></span>
+                <span className="relative text-[#0047AB]">
                   FM4 Therapy
                 </span>
               </span>
@@ -97,41 +102,72 @@ const WorkshopSection = () => {
           </div>
         </AnimatedSection>
 
-        {/* ===== CURRICULUM SECTION ===== */}
+        {/* ===== CURRICULUM SECTION (COMPACT COLORFUL DESIGN) ===== */}
         <AnimatedSection>
-          <div className="space-y-12 relative">
+          <div className="space-y-10 relative">
             <div className="text-center">
-              <h3 className="text-2xl md:text-4xl font-black text-slate-900 mb-2">
+              <h3 className="text-2xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">
                 Workshop Curriculum
               </h3>
-              <p className="text-slate-500 font-medium uppercase tracking-widest text-xs">The 4-Step FM4 Recovery Framework</p>
+              <p className="text-blue-600 font-black uppercase tracking-[0.2em] text-[10px] md:text-xs">
+                The 4-Step FM4 Recovery Framework
+              </p>
             </div>
-            <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 border-t-2 border-dashed border-slate-200 -z-0 transform -translate-y-10" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto">
               {phases.map((phase, i) => (
-                <div key={i} className="relative group bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 z-10">
-                  <div className={`absolute -top-3 -right-3 w-10 h-10 ${phase.color} text-white rounded-full flex items-center justify-center font-bold shadow-lg`}>
-                    {i + 1}
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className={`relative group bg-gradient-to-br ${phase.gradient} rounded-[2rem] p-6 shadow-xl transition-all duration-500 overflow-hidden flex flex-col min-h-[220px]`}
+                >
+                  {/* GRAPHIC DECOR 1: Smaller Ghost Number */}
+                  <span className="absolute -bottom-2 -left-2 text-7xl font-black text-white/10 select-none pointer-events-none italic group-hover:scale-110 transition-transform duration-700">
+                    0{i + 1}
+                  </span>
+
+                  {/* GRAPHIC DECOR 2: Glass Morphism Blurred Circles */}
+                  <div className="absolute top-[-15%] right-[-15%] w-24 h-24 bg-white/20 rounded-full blur-xl pointer-events-none" />
+
+                  {/* Header Badge */}
+                  <div className="relative z-10 mb-4">
+                    <div className="w-9 h-9 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl flex items-center justify-center font-black text-base shadow-lg group-hover:bg-white group-hover:text-slate-900 transition-colors duration-300">
+                      {i + 1}
+                    </div>
                   </div>
-                  <div className="pt-2">
-                    <h4 className="text-slate-900 font-black text-lg mb-3 tracking-tight">
-                      Phase {i + 1}: <br/> {phase.title}
+
+                  {/* Text Contents */}
+                  <div className="relative z-10 flex-grow">
+                    <h4 className="text-white font-black text-lg mb-2 leading-tight tracking-tight">
+                      Phase {i + 1}: <br />
+                      <span className="text-white/90 group-hover:text-white transition-colors">{phase.title}</span>
                     </h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{phase.text}</p>
+                    <p className="text-white/80 text-[13px] font-bold leading-snug">
+                      {phase.text}
+                    </p>
                   </div>
-                  <div className={`mt-6 w-8 group-hover:w-full h-1.5 ${phase.color} rounded-full transition-all duration-500`} />
-                </div>
+
+                  {/* Minimal Status Bar at bottom */}
+                  <div className="relative z-10 mt-4">
+                    <div className="h-1 w-full bg-black/10 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-white rounded-full opacity-70 group-hover:opacity-100 transition-all duration-500 shadow-[0_0_8px_white]" 
+                        style={{ width: `${(i+1)*25}%` }} 
+                      />
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </AnimatedSection>
 
-        {/* ===== PRACTICAL APPLICATIONS (REDESIGNED WITH IMAGES) ===== */}
+        {/* ===== PRACTICAL APPLICATIONS ===== */}
         <AnimatedSection>
-          <div className="bg-slate-50 rounded-[3rem] p-8 md:p-16 border border-slate-100">
+          <div className="bg-slate-50 rounded-[3rem] p-8 md:p-16 border border-slate-100 shadow-sm">
             <div className="text-center mb-12">
               <h4 className="text-[#0047AB] font-black text-2xl md:text-4xl mb-4 tracking-tight">
-                Practical Applications
+                Plus: Practical Applications
               </h4>
               <p className="text-slate-500 font-medium">Real-world strategies you can start using immediately</p>
             </div>
@@ -139,17 +175,15 @@ const WorkshopSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {practicalApps.map((item, i) => (
                 <div key={i} className="group flex flex-col sm:flex-row items-center gap-6 bg-white p-6 rounded-3xl shadow-sm hover:shadow-md transition-all border border-slate-100">
-                  {/* Image Container */}
                   <div className="w-full sm:w-32 h-32 flex-shrink-0 overflow-hidden rounded-2xl">
                     <img 
                       src={item.img} 
                       alt={item.title} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/150?text=FM4" }} // Fallback if image not found
+                      onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/150?text=FM4" }}
                     />
                   </div>
                   
-                  {/* Text Container */}
                   <div className="flex items-start gap-3">
                     <div className="mt-1 flex-shrink-0">
                       <div className="bg-green-100 rounded-full p-1">
@@ -171,7 +205,8 @@ const WorkshopSection = () => {
   );
 };
 
-const DayCard = ({ day, title, points }: { day: string, title: string, points: string[] }) => (
+// Internal Helper Components
+const DayCard = ({ day, title, points }) => (
   <div className="flex-1 w-full rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl flex flex-col bg-white">
     <div className="bg-[#0047AB] p-6 md:p-8 text-white">
       <span className="inline-block bg-amber-400 text-[#0047AB] text-xs font-black px-3 py-1 rounded-full mb-3 shadow-md uppercase tracking-wider">
