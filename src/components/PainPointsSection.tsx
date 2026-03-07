@@ -6,9 +6,9 @@ const painPoints = [
   "Aapne painkillers try kiye, kuch ghanton ke liye kaam karte hain, phir pain wapas aa jata hai",
   "Aapne physiotherapy karwayi, temporarily help karti hai, lekin last nahi karti",
   "Aapne massage karwaye, us waqt achha lagta hai, pain wapas aa jata hai",
-  "Aapne lakhs kharch kiye treatments pe, phir bhi pain hai",
+  "Apne lakhon rupiya kharch kiya treatments par, phir bhi pain barkarar hai?",
   'Doctors kehte hain "it\'s age" ya "iske saath jeena seekho"',
-  "Doctors kehte hain surgery ka time aa gaya hai...",
+  "Doctors kehte hain surgery hi ek matra solution hai.",
 ];
 
 const PainPointsSection = () => {
