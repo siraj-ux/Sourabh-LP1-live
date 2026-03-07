@@ -43,7 +43,7 @@ const PricingSection = () => {
                 "Personalized Pain Assessment",
                 "FM4 Therapy Live Demo",
                 "Lifetime Access to Resources",
-                "Sourobh Kulkarni Ke Saath Q&A",
+                "Sourobh Kulkorni Ke Saath Q&A",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="flex-shrink-0 w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
