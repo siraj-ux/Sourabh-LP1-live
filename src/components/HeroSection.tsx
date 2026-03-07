@@ -229,7 +229,7 @@ const HeroSection = () => {
                       onClick={() => setIsPlaying(true)}
                     >
                       <img
-                        src="/1.webp"
+                        src="/new-click-bite.png"
                         alt="Video Preview"
                         className="w-full h-full object-cover"
                       />
