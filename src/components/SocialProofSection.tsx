@@ -3,25 +3,23 @@ import AnimatedCounter from "./AnimatedCounter";
 
 const stats = [
   {
-    value: 30000,
+    value: 10000,
     suffix: "+",
-    text: "Cases Successfully Reversed", // Shortened for mobile fit
+    text: "Spine, Knee & Neck Pain Reversed Successfully!",
+    img: "/back.webp",
   },
   {
     value: 5000,
     suffix: "+",
-    text: "Surgeries Avoided",
+    text: "Surgeries Avoided!",
+    img: "/surgery.webp",
   },
   {
     value: 100,
     prefix: "₹",
-    suffix: " Cr+",
-    text: "Medical Bills Saved",
-  },
-  {
-    value: 1000,
-    suffix: "+",
-    text: "5-Star Google Reviews",
+    suffix: " Crores+",
+    text: "Medical Bills Saved for Patients in 10 years!",
+    img: "/bill.webp",
   },
 ];
 
@@ -29,50 +27,56 @@ const SocialProofSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.2);
 
   return (
-    <section ref={ref} className="bg-white py-10 md:py-16 px-4 overflow-hidden">
+    // Reduced section padding from py-20 to py-8/12
+    <section ref={ref} className="bg-[#F8FAFC] py-8 md:py-12 px-4 overflow-hidden">
       <div className="max-w-5xl mx-auto">
         
-        {/* TOP SECTION: STATS */}
-        <h2 className="text-2xl md:text-4xl font-black text-slate-900 text-center mb-8 tracking-tight">
-         Successful Pain Relief<span className="text-[#0047AB]"> Successful Numbers</span>
-        </h2>
+        {/* HEADER - Smaller font sizes */}
+        <div className="text-center mb-6 md:mb-10">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+            Proven results,<span className="text-[#0047AB]">from pain to complete recovery.</span>
+          </h2>
+        </div>
 
-        {/* Grid: 2 columns on mobile, 4 on desktop */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-16 md:mb-20">
+        {/* STATS GRID - Reduced gap */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {stats.map((s, i) => (
             <div
               key={i}
-              className={`bg-slate-50 border border-slate-100 rounded-2xl p-4 md:p-6 text-center shadow-sm 
-              transition-all duration-500 ease-out transform ${
-                isVisible
-                  ? "opacity-100 translate-y-0 scale-100"
-                  : "opacity-0 translate-y-4 scale-95"
+              className={`flex flex-col overflow-hidden rounded-2xl md:rounded-[1.5rem] shadow-lg transition-all duration-700 ease-out transform ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              <div className="text-xl md:text-3xl font-black text-[#0047AB] mb-1">
-                <AnimatedCounter
-                  end={s.value}
-                  prefix={s.prefix || ""}
-                  suffix={s.suffix || ""}
-                  start={isVisible}
+              {/* TOP PART: IMAGE - Reduced height from h-64 to h-32/44 */}
+              <div className="h-32 md:h-44 overflow-hidden bg-white">
+                <img 
+                  src={s.img} 
+                  alt={s.text}
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <p className="text-[10px] md:text-sm text-slate-500 font-bold uppercase tracking-wide">
-                {s.text}
-              </p>
+
+              {/* BOTTOM PART: DARK SLATE BOX - Reduced padding and min-height */}
+              <div className="bg-[#3F5161] p-5 md:p-6 flex flex-col items-center text-center flex-grow min-h-[160px] justify-center">
+                <div className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tighter">
+                  <AnimatedCounter
+                    end={s.value}
+                    prefix={s.prefix || ""}
+                    suffix={s.suffix || ""}
+                    start={isVisible}
+                  />
+                </div>
+
+                {/* THE HORIZONTAL SEPARATOR LINE - Thinner and smaller margin */}
+                <div className="w-8 h-[1.5px] bg-slate-400/40 mb-3"></div>
+
+                <p className="text-[13px] md:text-sm text-white font-bold leading-snug">
+                  {s.text}
+                </p>
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* BOTTOM SECTION: HEADLINE */}
-        <div className="text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
-            Head, Shoulders, Knees  <br className="md:hidden" /> ya Heels me <span className="text-[#0047AB]">dard?</span>
-          </h2>
-          <p className="text-sm md:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed px-4">
-            Agar haan, toh aap akele nahi hain. Thousands of patients ne same challenges face kiye hain.
-          </p>
         </div>
 
       </div>

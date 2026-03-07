@@ -11,15 +11,20 @@ const WorkshopSection = () => {
 
         {/* ===== TOP INTRO BLOCK ===== */}
         <AnimatedSection>
-          <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12 text-center">
-            <h2 className="text-2xl md:text-4xl font-bold mb-6">
-              The FM4 Therapy Live Workshop
+          <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12 text-center border border-white/5">
+            {/* Main Heading */}
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+              Pain free life with FM4 live workshop
             </h2>
 
-            <p className="text-blue-100 max-w-3xl mx-auto mb-8">
-              Wahi therapy jisne 30,000+ logon ko naturally pain-free life di,
-              ab aapke liye available hai is exclusive 2-day live training mein.
-              Yeh koi temporary fix nahi hai. Yeh ek complete system hai.
+            {/* Sub-Heading */}
+            <p className="text-lg md:text-2xl font-semibold text-primary mb-8 max-w-4xl mx-auto">
+              Transform Chronic Pain into Freedom of Movement by discovering one of its kind FM4 Therapy
+            </p>
+
+            <p className="text-blue-100 max-w-3xl mx-auto mb-10 leading-relaxed">
+              Yeh koi temporary fix ya painkiller solution nahi hai. Yeh ek complete movement system hai 
+              jo aapki body ki alignment aur strength ko restore karta hai taaki aap bina kisi rukawat ke apni zindagi jee sakein.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -29,7 +34,7 @@ const WorkshopSection = () => {
                 "Movement patterns jo aapko pain cycle mein rakhte hain",
                 "Natural recovery bina medications ki dependency ke",
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-2 text-left">
+                <div key={i} className="flex items-start gap-2 text-left bg-white/5 p-3 rounded-xl border border-white/5">
                   <span className="text-primary flex-shrink-0 mt-0.5">✅</span>
                   <span className="text-sm text-foreground">{item}</span>
                 </div>
@@ -45,7 +50,7 @@ const WorkshopSection = () => {
               Is 2-Day Live Workshop Mein Aap Kya Experience Karoge?
             </h3>
 
-            {/* Mobile Scroll Wrapper Added */}
+            {/* Mobile Scroll Wrapper */}
             <div className="md:hidden">
               <div
                 className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 hide-scrollbar"
@@ -56,9 +61,8 @@ const WorkshopSection = () => {
                   setActiveDay(index);
                 }}
               >
-
                 {/* Day 1 */}
-                <div className="card-gradient border border-border rounded-2xl p-6 md:p-8 shadow-card w-full min-w-full snap-center">
+                <div className="card-gradient border border-border rounded-2xl p-6 shadow-card w-full min-w-full snap-center">
                   <h4 className="text-primary font-bold uppercase mb-4">
                     DAY 1: APNI ROOT CAUSE DISCOVER KARO
                   </h4>
@@ -78,7 +82,7 @@ const WorkshopSection = () => {
                 </div>
 
                 {/* Day 2 */}
-                <div className="card-gradient border border-border rounded-2xl p-6 md:p-8 shadow-card w-full min-w-full snap-center">
+                <div className="card-gradient border border-border rounded-2xl p-6 shadow-card w-full min-w-full snap-center">
                   <h4 className="text-primary font-bold uppercase mb-4">
                     DAY 2: FM4 THERAPY EXPERIENCE KARO
                   </h4>
@@ -96,7 +100,6 @@ const WorkshopSection = () => {
                     "Wahi therapy jisne 30,000+ logo ki help ki..."
                   </p>
                 </div>
-
               </div>
 
               {/* Scroll Dots */}
@@ -105,71 +108,66 @@ const WorkshopSection = () => {
                   <div
                     key={i}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      activeDay === i
-                        ? "w-6 bg-primary"
-                        : "w-2 bg-muted-foreground/40"
+                      activeDay === i ? "w-6 bg-primary" : "w-2 bg-muted-foreground/40"
                     }`}
                   />
                 ))}
               </div>
             </div>
 
-            {/* Original Desktop Layout Unchanged */}
+            {/* Desktop Layout */}
             <div className="hidden md:flex gap-4">
+              {/* Day 1 */}
+              <div className="card-gradient border border-border rounded-2xl p-8 shadow-card flex-1">
+                <h4 className="text-primary font-bold uppercase mb-4">
+                  DAY 1: APNI ROOT CAUSE DISCOVER KARO
+                </h4>
+                <p className="text-foreground font-semibold mb-4">
+                  Live Personalized Pain Assessment
+                </p>
+                <ul className="space-y-2 text-sm text-blue-100 mb-4">
+                  <li>• Exact origin discover karo</li>
+                  <li>• Overloaded muscles samjho</li>
+                  <li>• Compensation patterns identify karo</li>
+                  <li>• Previous treatments kaam kyun nahi kiye</li>
+                  <li>• Specific condition clarity pao</li>
+                </ul>
+                <p className="text-primary text-sm italic">
+                  "Exactly jaano ki aapka pain kyun ho raha hai, LIVE."
+                </p>
+              </div>
 
-  {/* Day 1 */}
-  <div className="card-gradient border border-border rounded-2xl p-6 md:p-8 shadow-card flex-1">
-    <h4 className="text-primary font-bold uppercase mb-4">
-      DAY 1: APNI ROOT CAUSE DISCOVER KARO
-    </h4>
-    <p className="text-foreground font-semibold mb-4">
-      Live Personalized Pain Assessment
-    </p>
-    <ul className="space-y-2 text-sm text-blue-100 mb-4">
-      <li>• Exact origin discover karo</li>
-      <li>• Overloaded muscles samjho</li>
-      <li>• Compensation patterns identify karo</li>
-      <li>• Previous treatments kaam kyun nahi kiye</li>
-      <li>• Specific condition clarity pao</li>
-    </ul>
-    <p className="text-primary text-sm italic">
-      "Exactly jaano ki aapka pain kyun ho raha hai, LIVE."
-    </p>
-  </div>
-
-  {/* Day 2 */}
-  <div className="card-gradient border border-border rounded-2xl p-6 md:p-8 shadow-card flex-1">
-    <h4 className="text-primary font-bold uppercase mb-4">
-      DAY 2: FM4 THERAPY EXPERIENCE KARO
-    </h4>
-    <p className="text-foreground font-semibold mb-4">
-      Live FM4 Therapy Demonstration
-    </p>
-    <ul className="space-y-2 text-sm text-blue-100 mb-4">
-      <li>• Proven 4-phase treatment experience</li>
-      <li>• Immediate relief feel karo</li>
-      <li>• Ghar pe continue techniques seekho</li>
-      <li>• Recovery science samjho</li>
-      <li>• 30,000+ logon ne benefit liya</li>
-    </ul>
-    <p className="text-primary text-sm italic">
-      "Wahi therapy jisne 30,000+ logo ki help ki..."
-    </p>
-  </div>
-
-</div>
+              {/* Day 2 */}
+              <div className="card-gradient border border-border rounded-2xl p-8 shadow-card flex-1">
+                <h4 className="text-primary font-bold uppercase mb-4">
+                  DAY 2: FM4 THERAPY EXPERIENCE KARO
+                </h4>
+                <p className="text-foreground font-semibold mb-4">
+                  Live FM4 Therapy Demonstration
+                </p>
+                <ul className="space-y-2 text-sm text-blue-100 mb-4">
+                  <li>• Proven 4-phase treatment experience</li>
+                  <li>• Immediate relief feel karo</li>
+                  <li>• Ghar pe continue techniques seekho</li>
+                  <li>• Recovery science samjho</li>
+                  <li>• 30,000+ logon ne benefit liya</li>
+                </ul>
+                <p className="text-primary text-sm italic">
+                  "Wahi therapy jisne 30,000+ logo ki help ki..."
+                </p>
+              </div>
+            </div>
           </div>
         </AnimatedSection>
 
         {/* ===== PHASES + PRACTICAL BLOCK ===== */}
         <AnimatedSection>
           <div className="bg-secondary/30 rounded-3xl px-6 md:px-10 py-12">
-
             <h3 className="text-2xl md:text-4xl font-bold text-center mb-8">
               Workshop Mein Hum Kya Cover Karenge
             </h3>
 
-            {/* Mobile Scroll Added */}
+            {/* Mobile Scroll */}
             <div className="md:hidden">
               <div
                 className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 hide-scrollbar"
@@ -196,22 +194,19 @@ const WorkshopSection = () => {
                 ))}
               </div>
 
-              {/* Scroll Dots */}
               <div className="flex justify-center gap-2 mt-4 mb-6">
                 {[0, 1, 2, 3].map((_, i) => (
                   <div
                     key={i}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      activePhase === i
-                        ? "w-6 bg-primary"
-                        : "w-2 bg-muted-foreground/40"
+                      activePhase === i ? "w-6 bg-primary" : "w-2 bg-muted-foreground/40"
                     }`}
                   />
                 ))}
               </div>
             </div>
 
-            {/* Original Desktop Grid Unchanged */}
+            {/* Desktop Grid */}
             <div className="hidden md:grid md:grid-cols-4 gap-4 mb-10">
               {[
                 { title: "Phase 1: Identify", text: "Root cause pinpoint karo." },
@@ -226,7 +221,7 @@ const WorkshopSection = () => {
               ))}
             </div>
 
-            {/* Practical Applications Unchanged */}
+            {/* Practical Applications */}
             <div className="card-gradient border border-border rounded-2xl p-6">
               <h4 className="text-primary font-bold mb-4 text-center">
                 Plus: Practical Applications
@@ -245,7 +240,6 @@ const WorkshopSection = () => {
                 ))}
               </div>
             </div>
-
           </div>
         </AnimatedSection>
 

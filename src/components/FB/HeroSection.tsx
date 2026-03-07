@@ -53,8 +53,8 @@ const toggleMute = () => {
             {/* Glowing Badges */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6 text-sm">
               {[
-                "2-Day Live Workshop",
-                "30,000+ Cases Reversed",
+                "30,000+ Musculoskeletal Cases Recovered.",
+                " Restoring Movement. Rebuilding Lives.",
                 "4.6 Rating",
               ].map((item, i) => (
                 <span

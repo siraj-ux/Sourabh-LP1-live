@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
 
             {/* Heading */}
             <h2 className="text-2xl md:text-4xl font-black text-center mb-4 text-slate-900 leading-tight">
-             Pain-Free Clients  <span className="text-[#0047AB]">Ke Real Feedback</span> 
+             Padhiye Firsthand From Our Clients About Their Journey <span className="text-[#0047AB]">To A Pain-Free Life</span> 
             </h2>
 
             {/* Google Rating - Clean white style */}

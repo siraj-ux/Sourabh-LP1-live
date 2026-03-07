@@ -27,14 +27,12 @@ const HeroSection = () => {
     config?.payment_link ||
     "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
-  // Initial State set to 5 Hours
   const [timeLeft, setTimeLeft] = useState({
     hours: "05",
     min: "00",
     sec: "00",
   });
 
-  // Fetch config from Google Sheet
   useEffect(() => {
     const loadConfig = async () => {
       try {
@@ -63,7 +61,6 @@ const HeroSection = () => {
     loadConfig();
   }, []);
 
-  // Countdown timer - Set to 5 hours (5 * 3600 seconds)
   useEffect(() => {
     let totalSecondsRemaining = 5 * 60 * 60;
 
@@ -108,19 +105,18 @@ const HeroSection = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto text-center text-white w-full">
         <div className="inline-block bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-3 py-0.5 text-[9px] md:text-sm font-semibold mb-2 md:mb-4">
-          2-Day Live Workshop • 30,000+ Cases Reversed •{" "}
+          30,000+ Musculoskeletal Cases Recovered. Restoring Movement. Rebuilding Lives.{" "}
           <span className="text-yellow-400">⭐ 4.6</span>
         </div>
 
         <h1 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] mb-1.5 md:mb-4 px-2">
           Spine, Knee Aur Neck Pain Se{" "}
-          <span className="text-yellow-400">Natural Relief</span> Kaise Paayein?
+          <span className="text-yellow-400">Lasting Relief</span> Kaise Paayein?
         </h1>
 
         <div className="mb-2 md:mb-6 px-4">
           <p className="text-[11px] md:text-xl font-medium opacity-95 max-w-3xl mx-auto leading-tight md:leading-relaxed">
-            Long-Term Relief Ke Liye, Bina Medicines, Surgery, Physio, Chiro Ya
-            Oil Massages Ke.
+            Achieve kare lasting relief from spine, knee and neck pain bina kisi medicines, surgeries, physiotherapy, chiropractic care ya oil massages.
           </p>
         </div>
 
@@ -135,13 +131,10 @@ const HeroSection = () => {
         </div>
 
         <div className="flex flex-col items-center gap-3 md:gap-10 w-full">
-          {/* Main Booking Box */}
           <div className="w-full max-w-lg bg-white/10 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-7 border border-white/10 shadow-2xl">
 
-            {/* COMPACT DATE & TIME - LOGO LEFT, TEXT RIGHT */}
             <div className="grid grid-cols-2 gap-1.5 md:gap-4 mb-3 md:mb-5">
 
-              {/* Date Card */}
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Calendar className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
@@ -157,7 +150,6 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Time Card */}
               <div className="bg-white rounded-lg md:rounded-2xl p-1.5 md:p-4 border border-gray-200 shadow-sm flex items-center gap-1.5 md:gap-3">
                 <div className="bg-gray-100 p-1 md:p-2 rounded-full shrink-0">
                   <Clock className="w-3.5 h-3.5 md:w-6 md:h-6 text-gray-700" />
@@ -219,9 +211,14 @@ const HeroSection = () => {
                 </div>
               </div>
             </div>
+
+            {/* Smaller Highlight Text */}
+            <p className="mt-2 md:mt-3 text-[9px] md:text-sm font-semibold text-yellow-300">
+              Are you also struggling from <span className="font-bold text-white">spine, knees & neck pain?</span>
+            </p>
+
           </div>
 
-          {/* VIDEO SECTION */}
           <AnimatedSection className="w-full">
             <div className="w-full md:max-w-3xl mx-auto px-0">
               <div className="relative group">

@@ -32,13 +32,13 @@ const PainPointsSection = () => {
           {/* Headline */}
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 leading-tight mb-4">
-              Head, Shoulders, Knees ya Heels me  <span className="text-[#0047AB]">dard?</span>
+              Kya Aap Bhi Head, Shoulders, Knees Ya Heels Pain Se Jujha <span className="text-[#0047AB]">Rahe Hai ?</span>
             </h2>
 
             {/* NEW HIGHLIGHTED TEXT */}
             <div className="bg-yellow-100 border border-yellow-200 px-4 py-2 rounded-lg inline-block shadow-sm">
               <p className="text-sm md:text-base text-slate-900 font-black">
-                Neeche click karke batao aap kya experience kar rahe ho:
+                Neeche Click Karke Share Karein Ki Aap Kis Type Ka Pain Face Kar Rahe Hain:
               </p>
             </div>
           </div>
