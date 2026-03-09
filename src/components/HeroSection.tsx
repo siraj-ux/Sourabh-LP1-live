@@ -90,7 +90,6 @@ const HeroSection = () => {
 
   const handleBooking = () => {
     if (window.fbq) {
-      window.fbq("track", "AddToCart");
       window.fbq("track", "Subscribe");
     }
 

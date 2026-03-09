@@ -41,7 +41,7 @@ const StickyFooter = () => {
             onClick={() => {
               // @ts-ignore
               if (window.fbq) {
-                window.fbq("track", "AddToCart");
+                // window.fbq("track", "AddToCart");
                 window.fbq("track", "Subscribe");
               }
               // small delay for tracking
