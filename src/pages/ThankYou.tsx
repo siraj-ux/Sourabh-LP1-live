@@ -9,12 +9,62 @@ const ThankYou = () => {
   const [confetti] = useState(true);
 
   useEffect(() => {
-    if (window.fbq) {
-      window.fbq("init", "945210531500711");
-      window.fbq("init", "1278108320936716");
-      window.fbq("track", "PageView");
-      window.fbq("trackSingle", "1278108320936716", "Purchase");
-    }
+    // Add a small delay to ensure fbq is fully loaded
+    const trackEvents = () => {
+      if (window.fbq) {
+        console.log("Facebook Pixel loaded successfully");
+        
+        // Initialize all pixels
+        window.fbq("init", "945210531500711");
+        console.log("Initialized pixel: 945210531500711");
+        
+        window.fbq("init", "1278108320936716");
+        console.log("Initialized pixel: 1278108320936716");
+        
+        window.fbq("init", "2224378118089593");
+        console.log("Initialized pixel: 2224378118089593");
+        
+        // Track PageView on all pixels
+        window.fbq("track", "PageView");
+        console.log("PageView tracked on all pixels");
+        
+        // Small delay before Purchase events
+        setTimeout(() => {
+          // Track Purchase on pixel 945210531500711
+          window.fbq("trackSingle", "945210531500711", "Purchase", {
+            content_name: "Workshop Registration",
+            content_category: "Workshop",
+            value: 99,
+            currency: "INR"
+          });
+          console.log("Purchase tracked on pixel: 945210531500711");
+          
+          // Track Purchase on pixel 1278108320936716
+          window.fbq("trackSingle", "1278108320936716", "Purchase", {
+            content_name: "Workshop Registration",
+            content_category: "Workshop",
+            value: 99,
+            currency: "INR"
+          });
+          console.log("Purchase tracked on pixel: 1278108320936716");
+          
+          // Track Purchase on pixel 2224378118089593
+          window.fbq("trackSingle", "2224378118089593", "Purchase", {
+            content_name: "Workshop Registration",
+            content_category: "Workshop",
+            value: 99,
+            currency: "INR"
+          });
+          console.log("Purchase tracked on pixel: 2224378118089593");
+        }, 100);
+      } else {
+        console.error("Facebook Pixel (fbq) not found!");
+      }
+    };
+
+    // Execute after a short delay to ensure scripts are loaded
+    setTimeout(trackEvents, 500);
+    
     localStorage.removeItem("lastRegistration");
   }, []);
 
@@ -90,7 +140,7 @@ const ThankYou = () => {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Format</p>
-                  <p className="font-bold text-slate-800 text-sm md:text-base">
+                  <p className="font-bold text-slate-sm md:text-base">
                     Online Live Workshop (Hindi & English)
                   </p>
                 </div>

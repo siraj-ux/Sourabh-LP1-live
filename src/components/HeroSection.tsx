@@ -89,7 +89,18 @@ const HeroSection = () => {
   }, []);
 
   const handleBooking = () => {
+    // Track Add to Cart event
     if (window.fbq) {
+      window.fbq("track", "AddToCart", {
+        content_name: "Pain Relief Workshop",
+        content_category: "Workshop",
+        content_ids: ["workshop_2026"],
+        content_type: "product",
+        value: 41.00, // Adjust this to your actual workshop price
+        currency: "INR"
+      });
+      
+      // Also track Subscribe event
       window.fbq("track", "Subscribe");
     }
 

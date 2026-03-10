@@ -16,6 +16,7 @@ export const useNonFBPixel = ({ eventName, eventParams }: UseNonFBPixelProps) =>
       if (!initialized) {
         window.fbq("init", "945210531500711");
         window.fbq("init", "1278108320936716");
+        window.fbq("init", "2224378118089593"); 
         initialized = true;
       }
       window.fbq("track", eventName, eventParams);
