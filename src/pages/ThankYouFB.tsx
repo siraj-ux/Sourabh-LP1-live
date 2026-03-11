@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
@@ -6,6 +6,7 @@ import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 declare global {
   interface Window {
     fbq?: (...args: any[]) => void;
+    _fbq?: any;
   }
 }
 
@@ -27,8 +28,60 @@ function normalizeDate(value: string): string {
 const ThankYouFB = () => {
   const [config, setConfig] = useState<any>(null);
   const [confetti, setConfetti] = useState(true);
+  const pixelFired = useRef(false);
 
-  // Updated fallback dates
+  // --- Facebook Pixel Logic Start ---
+  useEffect(() => {
+    if (pixelFired.current) return;
+    pixelFired.current = true;
+
+    /* Facebook Pixel Base Code */
+    (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod
+          ? n.callMethod.apply(n, arguments)
+          : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = "2.0";
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+
+    const pixelIds = [
+      "945210531500711",
+      "1278108320936716",
+      "2224378118089593",
+    ];
+
+    if (window.fbq) {
+      pixelIds.forEach((id) => {
+        window.fbq!("init", id);
+
+        // PageView
+        window.fbq!("trackSingle", id, "PageView");
+      });
+
+      // Delay Purchase to ensure script loaded
+      setTimeout(() => {
+        pixelIds.forEach((id) => {
+          window.fbq!("trackSingle", id, "Purchase", {
+            value: 99.0,
+            currency: "INR",
+          });
+        });
+      }, 1000);
+    }
+  }, []);
+  // --- Facebook Pixel Logic End ---
+
   const day1 = config?.day1_datetime || "2026-03-07T20:00:00";
   const day2 = config?.day2_datetime || "2026-03-08T10:00:00";
 
@@ -36,12 +89,10 @@ const ThankYouFB = () => {
     config?.whatsapp_link ||
     "https://chat.whatsapp.com/LstNYgmemz51zgzgGYazi";
 
-  // Fetch config from Google Sheets
   useEffect(() => {
     const loadConfig = async () => {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
-
         if (cached) {
           setConfig(JSON.parse(cached));
           return;
@@ -73,9 +124,19 @@ const ThankYouFB = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-12">
-      <div className="max-w-xl w-full">
 
-        {/* Main Content Card */}
+      {/* Purchase Noscript Fallback */}
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: "none" }}
+          src="https://www.facebook.com/tr?id=945210531500711&ev=Purchase&cd[value]=99.00&cd[currency]=INR&noscript=1"
+          alt="pixel"
+        />
+      </noscript>
+
+      <div className="max-w-xl w-full">
         <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,71,171,0.1)] border border-slate-100 overflow-hidden">
 
           {/* Header */}
@@ -100,7 +161,6 @@ const ThankYouFB = () => {
           </div>
 
           <div className="p-8 md:p-10 text-center">
-
             <div className="mb-8">
               <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 leading-tight">
                 Aapki Seat Successfully Book Ho Gayi Hai!
@@ -187,15 +247,12 @@ const ThankYouFB = () => {
               </div>
 
             </div>
-
           </div>
         </div>
 
-        {/* Footer */}
         <p className="mt-8 text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">
           India's Leading FM4 Pain Relief Workshop
         </p>
-
       </div>
     </div>
   );
