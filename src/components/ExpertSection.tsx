@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { Check, ArrowRight } from "lucide-react"; 
+import { Check, ArrowRight } from "lucide-react";
 import celebrity1 from "@/assets/celebrity-1.webp";
 import celebrity2 from "@/assets/celebrity-2.webp";
 import celebrity3 from "@/assets/celebrity-3.webp";
+import bonusImg from "@/assets/bonus.jpeg"; 
 import AnimatedSection from "./AnimatedSection";
 
 const ExpertSection = () => {
   const images = [celebrity1, celebrity2, celebrity3];
   const [active, setActive] = useState(0);
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  // Auto scroll logic
   useEffect(() => {
     const interval = setInterval(() => {
       const container = scrollRef.current;
@@ -46,8 +46,6 @@ const ExpertSection = () => {
 
             {/* --- BIO & GALLERY GRID --- */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-16">
-              
-              {/* PHOTO GALLERY (Shows after heading on mobile) */}
               <div className="order-1 md:order-2">
                 <div
                   ref={scrollRef}
@@ -67,7 +65,6 @@ const ExpertSection = () => {
                     </div>
                   ))}
                 </div>
-
                 <div className="flex justify-center gap-2 mt-2">
                   {images.map((_, i) => (
                     <div
@@ -80,7 +77,6 @@ const ExpertSection = () => {
                 </div>
               </div>
 
-              {/* BIO TEXT CONTENT */}
               <div className="order-2 md:order-1">
                 <p className="text-slate-600 mb-4 text-sm md:text-base font-medium leading-relaxed">
                   Main Sourobh Kulkorni hoon, FM4 Therapy ka founder aur India ki only government-patented, 4-phase pain relief system ka creator. Certified Health Care Professional, Nutritionist, aur Rehabilitation Specialist hoon.
@@ -88,13 +84,11 @@ const ExpertSection = () => {
                 <p className="text-slate-600 mb-6 text-sm md:text-base font-medium leading-relaxed">
                   FM4 Therapy government-patented hai, India mein scientifically validated 4-phase treatment hai jo spine, knee, aur neck pain ki root causes ko target karta hai.
                 </p>
-
                 <div className="bg-[#0047AB] rounded-xl p-4 mb-6 shadow-lg">
                   <p className="text-white font-bold text-sm md:text-base text-center md:text-left">
                     🏆 Amazing Performer in Fitness Industry 2024
                   </p>
                 </div>
-
                 <div className="space-y-3">
                   {[
                     "30,000+ clients ne chronic pain overcome kiya",
@@ -111,8 +105,33 @@ const ExpertSection = () => {
               </div>
             </div>
 
-            {/* --- SEPARATE APPROACH SECTION (Camel Case Heading) --- */}
+            {/* --- SEPARATE APPROACH SECTION --- */}
             <div className="border-t border-slate-200 pt-12 mt-4">
+              
+              {/* --- CENTERED BANNER WITH SIDE DESIGN --- */}
+              <div className="flex items-center justify-center gap-6 mb-12">
+                {/* Left Side Decoration */}
+                <div className="hidden md:flex items-center gap-2 flex-1 justify-end">
+                  <div className="h-[2px] w-24 bg-gradient-to-r from-transparent to-blue-200"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-300"></div>
+                </div>
+
+                {/* Banner Image (Medium Size) */}
+                <div className="shrink-0 px-4">
+                  <img 
+                    src={bonusImg} 
+                    alt="Bonus" 
+                    className="max-w-[300px] md:max-w-[450px] lg:max-w-[500px] w-full h-auto rounded-xl shadow-lg border border-slate-200"
+                  />
+                </div>
+
+                {/* Right Side Decoration */}
+                <div className="hidden md:flex items-center gap-2 flex-1 justify-start">
+                  <div className="w-2 h-2 rounded-full bg-blue-300"></div>
+                  <div className="h-[2px] w-24 bg-gradient-to-l from-transparent to-blue-200"></div>
+                </div>
+              </div>
+
               <h3 className="text-2xl md:text-3xl font-black text-center mb-10 text-slate-900 tracking-tight px-4 leading-tight">
                 Sourobh Ka Approach <span className="text-[#0047AB]">Kaam Kyun Karta Hai?</span>
               </h3>
@@ -135,7 +154,6 @@ const ExpertSection = () => {
                 ))}
               </div>
             </div>
-
           </AnimatedSection>
         </div>
       </div>
