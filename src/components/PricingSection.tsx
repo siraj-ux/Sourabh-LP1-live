@@ -1,6 +1,7 @@
 import { Check } from "lucide-react"; // Import for professional checkmarks
 import AnimatedSection from "./AnimatedSection";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
+import AddToCartButton from "./AddToCartButton";
 
 const PricingSection = () => {
   const { config } = useWorkshopConfig();
@@ -55,7 +56,7 @@ const PricingSection = () => {
             </div>
 
             {/* BUTTON - Kept high contrast for conversion but styled cleaner */}
-            <button
+            {/* <button
               onClick={() => {
                 if (window.fbq) {
                   window.fbq("track", "AddToCart");
@@ -76,7 +77,30 @@ const PricingSection = () => {
               active:scale-95 uppercase tracking-tight"
             >
               APNI SEAT ABHI BOOK KAREIN
-            </button>
+            </button> */
+            }
+              
+              <AddToCartButton
+  label="APNI SEAT ABHI BOOK KAREIN"
+  showPrice={false} // ✅ avoid ₹99 duplication
+  onClick={() => {
+    if (window.fbq) {
+      window.fbq("track", "AddToCart");
+      window.fbq("track", "Subscribe");
+    }
+
+    setTimeout(() => {
+      window.location.href = paymentLink;
+    }, 150);
+  }}
+  className="w-full relative px-6 py-5 rounded-2xl 
+  bg-[#0047AB] text-white font-black text-lg
+  shadow-[0_10px_20px_rgba(0,71,171,0.3)]
+  transition-all duration-300
+  hover:scale-[1.02] hover:-translate-y-1
+  hover:shadow-[0_15px_30px_rgba(0,71,171,0.4)]
+  active:scale-95 uppercase tracking-tight"
+/>
 
             {/* Scarcity Text */}
             <p className="text-slate-500 font-bold text-xs mt-6 flex items-center justify-center gap-2">

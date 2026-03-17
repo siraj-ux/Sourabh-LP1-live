@@ -16,6 +16,7 @@ import IndexGA from "./pages/IndexGA";
 import ThankYouGA from "./pages/ThankYouGA";
 import RegisterSectionGA from "./pages/RegisterSectionGA";
 import PaymentFailedGA from "./pages/PaymentFailedGA";
+import { usePageViewGTM } from "./hooks/use-pageview-gtm";
 
 const queryClient = new QueryClient();
 
@@ -32,16 +33,11 @@ function MetaRouteTracker() {
   return null;
 }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        {/* 🔥 This is the important addition */}
-        <MetaRouteTracker />
+const AppRoutes = () => {
+  usePageViewGTM(); // ← hook goes here
 
-        <Routes>
+  return (
+    <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/fb" element={<IndexFB />} />
           <Route path="/ga" element={<IndexGA />} />
@@ -54,6 +50,21 @@ const App = () => (
           <Route path="/payment-failed-ga" element={<PaymentFailedGA />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+  );
+};
+
+
+const App = () => (
+  
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        {/* 🔥 This is the important addition */}
+        <MetaRouteTracker />
+
+        <AppRoutes />
 
       </BrowserRouter>
     </TooltipProvider>

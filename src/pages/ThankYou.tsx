@@ -3,13 +3,31 @@ import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
+import { trackPurchase } from "@/utils/gtm";
+import { ORDER } from "@/utils/product-info";
+
 
 const ThankYou = () => {
   const { config } = useWorkshopConfig();
   const [confetti] = useState(true);
-
+   
+  
   useEffect(() => {
-    // Add a small delay to ensure fbq is fully loaded
+    // Add a small delay t
+    // o ensure fbq is fully 
+    const params = new URLSearchParams(window.location.search);
+
+    const paymentId = params.get("razorpay_payment_id");
+    const alreadyTracked = localStorage.getItem(`tracked_${paymentId}`);
+      if (alreadyTracked) return;
+
+      trackPurchase({
+      ...ORDER,
+      transaction_id: paymentId || `txn_${Date.now()}`,
+    })
+
+    localStorage.setItem(`tracked_${paymentId}`, "true");
+
     const trackEvents = () => {
       if (window.fbq) {
         console.log("Facebook Pixel loaded successfully");

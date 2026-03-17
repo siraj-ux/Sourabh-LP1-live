@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Play, Clock, Calendar } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
+// import CheckoutButton from "./CheckoutButton";
+import AddToCartButton from "./AddToCartButton";
 
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbzpttKDUxieudBnZV1NwfQFtAaBvLvIU5zpip5NKfhzlVqQrDO7tR2VIi8e-j1cgVXjkA/exec";
@@ -177,13 +179,22 @@ const HeroSection = () => {
           </div>
 
           {/* BOOK BUTTON */}
-          <Button
+          {/* <Button
             onClick={handleBooking}
             className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-sm md:text-xl font-black py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg transition-all active:scale-95 mb-1 uppercase"
           >
             BOOK NOW — Sirf 41 Seats!
-          </Button>
-
+          </Button> */}
+          {/* <CheckoutButton
+             onClick={handleBooking}
+             label="BOOK NOW — Sirf 41 Seats!"
+             className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-sm md:text-xl font-black py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg transition-all active:scale-95 mb-1 uppercase"
+           /> */}
+           <AddToCartButton
+  onClick={handleBooking}
+  label="BOOK NOW — Sirf 41 Seats! "
+  className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-sm md:text-xl py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg active:scale-95 uppercase"
+/>
           {/* COUNTDOWN */}
           <div className="flex justify-center items-center gap-4 border-t border-white/10 pt-3">
             <div className="text-center">
