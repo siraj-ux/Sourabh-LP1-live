@@ -71,7 +71,7 @@ const UrgencySection = () => {
           <div className="flex justify-center">
             <AddToCartButton
               label="APNI SEAT ABHI CLAIM KAREIN"
-              showPrice={false}
+              
               onClick={handleCheckout}
               className="relative px-12 md:px-24 py-5 rounded-2xl 
               bg-[#0047AB] text-white font-black text-lg
