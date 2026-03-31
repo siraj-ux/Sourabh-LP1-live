@@ -42,3 +42,6 @@ export const ORDER : Order = {
     currency: CURRENCY,
     items: [PRODUCT],
 }
+export const RAZORPAY_PRODUCT_NAME="Fitness Master Workshop"
+
+export const RAZORPAY_DESCRIPTION=`${RAZORPAY_PRODUCT_NAME} from ${WEBINAR_NAME}`

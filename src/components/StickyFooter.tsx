@@ -2,6 +2,7 @@ import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { ArrowRight, Clock } from "lucide-react";
 import CheckoutButton from "./CheckoutButton";
 import AddToCartButton from "./AddToCartButton";
+
 const StickyFooter = () => {
   const { config } = useWorkshopConfig();
 
@@ -14,9 +15,11 @@ const StickyFooter = () => {
       window.fbq("track", "Subscribe");
     }
 
-    setTimeout(() => {
-      window.location.href = paymentLink;
-    }, 150);
+    // Scroll to the form instead of redirecting
+    const checkoutElement = document.getElementById("checkout");
+    if (checkoutElement) {
+      checkoutElement.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -49,20 +52,6 @@ const StickyFooter = () => {
 
         {/* Right Side */}
         <div className="flex flex-col items-center gap-1.5">
-
-          {/* <CheckoutButton
-            onClick={handleCheckout}
-            className="group flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 rounded-full 
-            bg-[#0047AB] text-white font-black text-xs md:text-sm uppercase tracking-tight
-            shadow-lg shadow-[#0047AB]/20 transition-all duration-300
-            hover:scale-[1.03] active:scale-95 hover:bg-[#003580]"
-            label={
-              <span className="flex items-center gap-2">
-                Book My Seat
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            }
-          /> */}
 
           <AddToCartButton
            onClick={handleCheckout}

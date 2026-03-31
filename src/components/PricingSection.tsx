@@ -6,13 +6,23 @@ import AddToCartButton from "./AddToCartButton";
 const PricingSection = () => {
   const { config } = useWorkshopConfig();
 
-  // ✅ Safe fallback - Unchanged
-  const paymentLink =
-    config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
+  // Handle Scroll to Form
+  const handleScrollToForm = () => {
+    if (window.fbq) {
+      window.fbq("track", "AddToCart");
+      window.fbq("track", "Subscribe");
+    }
+
+    // Target the checkout section ID
+    const checkoutElement = document.getElementById("checkout");
+    if (checkoutElement) {
+      checkoutElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="bg-white py-1 md:py-12 px-4">
-      {/* Outer Container - Changed from secondary/30 to slate-50 */}
+      {/* Outer Container */}
       <div className="max-w-lg mx-auto bg-slate-50 border border-slate-100 rounded-3xl px-6 md:px-8 py-8 md:py-10 shadow-sm">
         <AnimatedSection>
 
@@ -20,10 +30,10 @@ const PricingSection = () => {
             Limited Seats Available—<span className="text-[#0047AB]">Abhi Register Karein</span>
           </h2>
 
-          {/* Card - Changed from card-gradient to white-elevated style */}
+          {/* Card */}
           <div className="bg-white border border-slate-100 rounded-2xl p-8 text-center shadow-xl">
 
-            {/* PRICE - Swapped text-gradient for #0047AB brand blue */}
+            {/* PRICE */}
             <div className="mb-6 flex items-center justify-center">
               <span className="text-slate-400 line-through text-lg font-bold">
                 ₹499
@@ -37,7 +47,7 @@ const PricingSection = () => {
               80% OFF — Special Launch Price
             </div>
 
-            {/* FEATURES - Updated to match Workshop list style */}
+            {/* FEATURES */}
             <div className="space-y-4 text-left mb-10">
               {[
                 "2-Day Live Workshop",
@@ -55,19 +65,11 @@ const PricingSection = () => {
               ))}
             </div>
 
-            {/* BUTTON - Kept high contrast for conversion but styled cleaner */}
-            {/* <button
-              onClick={() => {
-                if (window.fbq) {
-                  window.fbq("track", "AddToCart");
-                  window.fbq("track", "Subscribe");
-                }
-
-                // small delay for tracking - Logic unchanged
-                setTimeout(() => {
-                  window.location.href = paymentLink;
-                }, 150);
-              }}
+            {/* BUTTON - Now points to form */}
+            <AddToCartButton
+              label="APNI SEAT ABHI BOOK KAREIN"
+              showPrice={false} 
+              onClick={handleScrollToForm}
               className="w-full relative px-6 py-5 rounded-2xl 
               bg-[#0047AB] text-white font-black text-lg
               shadow-[0_10px_20px_rgba(0,71,171,0.3)]
@@ -75,32 +77,7 @@ const PricingSection = () => {
               hover:scale-[1.02] hover:-translate-y-1
               hover:shadow-[0_15px_30px_rgba(0,71,171,0.4)]
               active:scale-95 uppercase tracking-tight"
-            >
-              APNI SEAT ABHI BOOK KAREIN
-            </button> */
-            }
-              
-              <AddToCartButton
-  label="APNI SEAT ABHI BOOK KAREIN"
-  showPrice={false} // ✅ avoid ₹99 duplication
-  onClick={() => {
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
-    }
-
-    setTimeout(() => {
-      window.location.href = paymentLink;
-    }, 150);
-  }}
-  className="w-full relative px-6 py-5 rounded-2xl 
-  bg-[#0047AB] text-white font-black text-lg
-  shadow-[0_10px_20px_rgba(0,71,171,0.3)]
-  transition-all duration-300
-  hover:scale-[1.02] hover:-translate-y-1
-  hover:shadow-[0_15px_30px_rgba(0,71,171,0.4)]
-  active:scale-95 uppercase tracking-tight"
-/>
+            />
 
             {/* Scarcity Text */}
             <p className="text-slate-500 font-bold text-xs mt-6 flex items-center justify-center gap-2">

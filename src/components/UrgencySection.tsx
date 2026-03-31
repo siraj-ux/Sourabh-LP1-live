@@ -1,5 +1,3 @@
-
-
 import { AlertCircle } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
@@ -16,18 +14,18 @@ const urgencyItems = [
 const UrgencySection = () => {
   const { config } = useWorkshopConfig();
 
-  const paymentLink =
-    config?.payment_link || "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
-
   const handleCheckout = () => {
+    // Keep tracking logic
     if (window.fbq) {
       window.fbq("track", "AddToCart");
       window.fbq("track", "Subscribe");
     }
 
-    setTimeout(() => {
-      window.location.href = paymentLink;
-    }, 150);
+    // Scroll to the form with ID "checkout"
+    const checkoutElement = document.getElementById("checkout");
+    if (checkoutElement) {
+      checkoutElement.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -71,19 +69,19 @@ const UrgencySection = () => {
 
           {/* CTA Button */}
           <div className="flex justify-center">
-  <AddToCartButton
-    label="APNI SEAT ABHI CLAIM KAREIN"
-    showPrice={false}
-    onClick={handleCheckout}
-    className="relative px-12 md:px-24 py-5 rounded-2xl 
-    bg-[#0047AB] text-white font-black text-lg
-    shadow-[0_10px_25px_rgba(0,71,171,0.3)]
-    transition-all duration-300
-    hover:scale-105 hover:-translate-y-1
-    hover:shadow-[0_15px_35px_rgba(0,71,171,0.4)]
-    active:scale-95 uppercase tracking-tight"
-  />
-</div>
+            <AddToCartButton
+              label="APNI SEAT ABHI CLAIM KAREIN"
+              showPrice={false}
+              onClick={handleCheckout}
+              className="relative px-12 md:px-24 py-5 rounded-2xl 
+              bg-[#0047AB] text-white font-black text-lg
+              shadow-[0_10px_25px_rgba(0,71,171,0.3)]
+              transition-all duration-300
+              hover:scale-105 hover:-translate-y-1
+              hover:shadow-[0_15px_35px_rgba(0,71,171,0.4)]
+              active:scale-95 uppercase tracking-tight"
+            />
+          </div>
         </AnimatedSection>
       </div>
     </section>
