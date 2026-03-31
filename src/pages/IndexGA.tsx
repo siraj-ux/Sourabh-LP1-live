@@ -10,11 +10,11 @@ import FAQSection from "@/components/FAQSection";
 import UrgencySection from "@/components/UrgencySection";
 import FooterSection from "@/components/FooterSection";
 import StickyFooter from "@/components/StickyFooter";
-import { useNonFBPixel } from "@/hooks/useNonFBPixel";
+
 // import ReviewsSection from "@/components/ReviewSection";
 
 const Index = () => {
-  useNonFBPixel({ eventName: "PageView" });
+  
 
   return (
     <div className="min-h-screen bg-background text-foreground">

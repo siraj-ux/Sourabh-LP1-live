@@ -5,6 +5,7 @@ import AnimatedSection from "./AnimatedSection";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 // import CheckoutButton from "./CheckoutButton";
 import AddToCartButton from "./AddToCartButton";
+import SubscribeButton from "./SubscribeButton";
 
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbzpttKDUxieudBnZV1NwfQFtAaBvLvIU5zpip5NKfhzlVqQrDO7tR2VIi8e-j1cgVXjkA/exec";
@@ -92,19 +93,19 @@ const HeroSection = () => {
 
   const handleBooking = () => {
     // Track Add to Cart event
-    if (window.fbq) {
-      window.fbq("track", "AddToCart", {
-        content_name: "Pain Relief Workshop",
-        content_category: "Workshop",
-        content_ids: ["workshop_2026"],
-        content_type: "product",
-        value: 41.00, // Adjust this to your actual workshop price
-        currency: "INR"
-      });
+    // if (window.fbq) {
+    //   window.fbq("track", "AddToCart", {
+    //     content_name: "Pain Relief Workshop",
+    //     content_category: "Workshop",
+    //     content_ids: ["workshop_2026"],
+    //     content_type: "product",
+    //     value: 41.00, // Adjust this to your actual workshop price
+    //     currency: "INR"
+    //   });
       
-      // Also track Subscribe event
-      window.fbq("track", "Subscribe");
-    }
+    //   // Also track Subscribe event
+    //   window.fbq("track", "Subscribe");
+    // }
 
     setTimeout(() => {
       window.location.href = paymentLink;
@@ -190,11 +191,8 @@ const HeroSection = () => {
              label="BOOK NOW — Sirf 41 Seats!"
              className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-sm md:text-xl font-black py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg transition-all active:scale-95 mb-1 uppercase"
            /> */}
-           <AddToCartButton
-  onClick={handleBooking}
-  label="BOOK NOW — Sirf 41 Seats! "
-  className="w-full bg-[#FF8C00] hover:bg-[#e67e00] text-white text-sm md:text-xl py-4 md:py-6 rounded-xl md:rounded-2xl shadow-lg active:scale-95 uppercase"
-/>
+           <SubscribeButton className="!w-full !bg-[#FF8C00] !hover:bg-[#e67e00] !text-white !text-sm !md:text-2xl !py-4 !md:py-6 !rounded-xl !md:rounded-2xl !shadow-lg !active:scale-95 !uppercase"/>
+           
           {/* COUNTDOWN */}
           <div className="flex justify-center items-center gap-4 border-t border-white/10 pt-3">
             <div className="text-center">

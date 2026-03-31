@@ -20,18 +20,18 @@ import { usePageViewGTM } from "./hooks/use-pageview-gtm";
 
 const queryClient = new QueryClient();
 
-function MetaRouteTracker() {
-  const location = useLocation();
+// function MetaRouteTracker() {
+//   const location = useLocation();
 
-  useEffect(() => {
-    if (window.fbq) {
-      window.fbq("track", "PageView");
-      console.log("Meta PageView:", location.pathname);
-    }
-  }, [location]);
+//   useEffect(() => {
+//     if (window.fbq) {
+//       window.fbq("track", "PageView");
+//       console.log("Meta PageView:", location.pathname);
+//     }
+//   }, [location]);
 
-  return null;
-}
+//   return null;
+// }
 
 const AppRoutes = () => {
   usePageViewGTM(); // ← hook goes here
@@ -61,11 +61,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        {/* 🔥 This is the important addition */}
-        <MetaRouteTracker />
-
         <AppRoutes />
-
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

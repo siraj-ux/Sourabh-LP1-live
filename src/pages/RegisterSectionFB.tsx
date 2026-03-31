@@ -1,12 +1,12 @@
 import { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
-import { useFacebookPixel } from "@/hooks/useFacebookPixel";
+// import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { Lock, CreditCard, ShieldCheck } from "lucide-react"; // Using Lucide for cleaner look
 
 const RAZORPAY_PAYMENT_LINK = "https://pages.razorpay.com/pl_SIpsxh7hbcrVQR/view";
 
 const RegisterSection = () => {
-  useFacebookPixel({ eventName: "PageView" });
+  // useFacebookPixel({ eventName: "PageView" });
   const [formData, setFormData] = useState({
     name: "",
     age: "",

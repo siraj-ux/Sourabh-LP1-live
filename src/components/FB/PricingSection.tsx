@@ -1,6 +1,6 @@
 import AnimatedSection from "./AnimatedSection";
 import { useNavigate } from "react-router-dom";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const urgencyItems = [
   { text: "Zyada Pain:", desc: "Untreated conditions time ke saath worse hoti hain" },
@@ -54,7 +54,7 @@ const UrgencySection = () => {
           <AddToCartButton
             label="APNI SEAT ABHI BOOK KAREIN"
             onClick={handleCheckout}
-            showPrice={false}
+            
             className="relative px-24 py-4 rounded-xl 
             bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00]
             text-black font-bold text-lg

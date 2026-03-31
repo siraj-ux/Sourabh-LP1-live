@@ -2,7 +2,7 @@ import CheckoutForm from "./CheckoutForm";
 
 const CheckoutSection = () => {
   return (
-    <section id="checkout" className="bg-white py-2 md:py-8 relative overflow-hidden">
+    <section className="bg-white py-2 md:py-8 relative overflow-hidden">
       {/* Background Glows - Changed to a soft blue */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-blue-50 rounded-full blur-[120px] -z-10" />
 
@@ -18,7 +18,7 @@ const CheckoutSection = () => {
         </div>
 
         {/* Card set to white with a soft blue border and shadow */}
-        <div className="bg-white shadow-xl shadow-blue-500/10 border border-blue-100 rounded-3xl p-5 md:p-8 relative overflow-hidden">
+        <div id="checkout" className="bg-white shadow-xl shadow-blue-500/10 border border-blue-100 rounded-3xl p-5 md:p-8 relative overflow-hidden">
           <CheckoutForm />
         </div>
       </div>

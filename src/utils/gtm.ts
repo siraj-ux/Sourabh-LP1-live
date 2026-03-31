@@ -7,6 +7,11 @@ declare global {
 import { CURRENCY, ORDER, PRODUCT } from "./product-info";
 
 
+export const generateTxnId = () => {
+  return `txn_${Date.now()}`;
+};
+
+
 export const pushEvent = (eventName, eventData ={}) => {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
@@ -28,10 +33,17 @@ export const getUTMParams = () => {
     }
 }
 
-export const trackPageView = ({location, title} : { location : {pathname: string}; title: string }) => {
-    pushEvent("page_view", {
+export const trackPageView = ({location, title, product} : { location : {pathname: string}; title: string; product: typeof PRODUCT }) => {
+    pushEvent("view_item", {
         page_path: location.pathname,
         page_title: title,
+        items: [{
+            item_id: product.item_id,
+            item_name: product.item_name,
+            item_category: product.item_category,
+            price: product.price,
+            quantity: product.quantity || 1,
+        }],
         ...getUTMParams()
     })
 }

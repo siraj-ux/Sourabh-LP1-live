@@ -16,10 +16,10 @@ const UrgencySection = () => {
 
   const handleCheckout = () => {
     // Keep tracking logic
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
-    }
+    // if (window.fbq) {
+    //   window.fbq("track", "AddToCart");
+    //   window.fbq("track", "Subscribe");
+    // }
 
     // Scroll to the form with ID "checkout"
     const checkoutElement = document.getElementById("checkout");

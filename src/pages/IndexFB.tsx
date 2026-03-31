@@ -11,11 +11,9 @@ import FAQSection from "@/components/FAQSection";
 import UrgencySection from "@/components/UrgencySection";
 import FooterSection from "@/components/FooterSection";
 import StickyFooter from "@/components/StickyFooter";
-import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 // import ReviewsSection from "@/components/ReviewSection";
 
 const Index = () => {
-useFacebookPixel({ eventName: "PageView" });
   return (
     <div className="min-h-screen bg-background text-foreground">
       <HeroSection />

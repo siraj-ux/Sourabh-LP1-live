@@ -28,57 +28,57 @@ function normalizeDate(value: string): string {
 const ThankYouFB = () => {
   const [config, setConfig] = useState<any>(null);
   const [confetti, setConfetti] = useState(true);
-  const pixelFired = useRef(false);
+  // const pixelFired = useRef(false);
 
   // --- Facebook Pixel Logic Start ---
   useEffect(() => {
-    if (pixelFired.current) return;
-    pixelFired.current = true;
+    // if (pixelFired.current) return;
+    // pixelFired.current = true;
 
-    /* Facebook Pixel Base Code */
-    (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod
-          ? n.callMethod.apply(n, arguments)
-          : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = true;
-      n.version = "2.0";
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = true;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    // /* Facebook Pixel Base Code */
+    // (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+    //   if (f.fbq) return;
+    //   n = f.fbq = function () {
+    //     n.callMethod
+    //       ? n.callMethod.apply(n, arguments)
+    //       : n.queue.push(arguments);
+    //   };
+    //   if (!f._fbq) f._fbq = n;
+    //   n.push = n;
+    //   n.loaded = true;
+    //   n.version = "2.0";
+    //   n.queue = [];
+    //   t = b.createElement(e);
+    //   t.async = true;
+    //   t.src = v;
+    //   s = b.getElementsByTagName(e)[0];
+    //   s.parentNode.insertBefore(t, s);
+    // })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
-    const pixelIds = [
-      "945210531500711",
-      "1278108320936716",
-      "2224378118089593",
-    ];
+    // const pixelIds = [
+    //   "945210531500711",
+    //   "1278108320936716",
+    //   "2224378118089593",
+    // ];
 
-    if (window.fbq) {
-      pixelIds.forEach((id) => {
-        window.fbq!("init", id);
+    // if (window.fbq) {
+    //   pixelIds.forEach((id) => {
+    //     window.fbq!("init", id);
 
-        // PageView
-        window.fbq!("trackSingle", id, "PageView");
-      });
+    //     // PageView
+    //     window.fbq!("trackSingle", id, "PageView");
+    //   });
 
-      // Delay Purchase to ensure script loaded
-      setTimeout(() => {
-        pixelIds.forEach((id) => {
-          window.fbq!("trackSingle", id, "Purchase", {
-            value: 99.0,
-            currency: "INR",
-          });
-        });
-      }, 1000);
-    }
+    //   // Delay Purchase to ensure script loaded
+    //   setTimeout(() => {
+    //     pixelIds.forEach((id) => {
+    //       window.fbq!("trackSingle", id, "Purchase", {
+    //         value: 99.0,
+    //         currency: "INR",
+    //       });
+    //     });
+    //   }, 1000);
+    // }
   }, []);
   // --- Facebook Pixel Logic End ---
 
