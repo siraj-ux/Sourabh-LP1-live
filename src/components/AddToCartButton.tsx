@@ -21,7 +21,7 @@ const AddToCartButton = ({
 }: AddToCartButtonProps) => {
 
   const handleClick = () => {
-    trackAddToCart(PRODUCT);
+    // trackAddToCart(PRODUCT);
     if (onClick) onClick();
   };
 

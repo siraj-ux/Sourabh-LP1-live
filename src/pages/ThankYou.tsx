@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
-import { trackPurchase } from "@/utils/gtm";
+import { generateTxnId, trackPurchase } from "@/utils/gtm";
 import { ORDER } from "@/utils/product-info";
 
 
@@ -17,9 +17,9 @@ const ThankYou = () => {
     // o ensure fbq is fully 
     const params = new URLSearchParams(window.location.search);
 
-    const paymentId = params.get("razorpay_payment_id");
+    const paymentId = params.get("razorpay_payment_id") || generateTxnId();
     const alreadyTracked = localStorage.getItem(`tracked_${paymentId}`);
-      if (alreadyTracked) return;
+    if (alreadyTracked) return;
 
       trackPurchase({
       ...ORDER,
