@@ -5,12 +5,6 @@ import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 // import { useNonFBPixel } from "@/hooks/useNonFBPixel";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
-declare global {
-  interface Window {
-    fbq?: (...args: any[]) => void;
-  }
-}
-
 const ThankYouGA = () => {
   const { config } = useWorkshopConfig();
   const [confetti, setConfetti] = useState(true);

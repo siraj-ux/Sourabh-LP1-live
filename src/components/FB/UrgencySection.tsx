@@ -1,6 +1,6 @@
 import AnimatedSection from "./AnimatedSection";
 import { useNavigate } from "react-router-dom";
-import AddToCartButton from "./AddToCartButton";
+import AddToCartButton from "../AddToCartButton";
 
 const urgencyItems = [
   { text: "Zyada Pain:", desc: "Untreated conditions time ke saath worse hoti hain" },
@@ -15,16 +15,16 @@ const UrgencySection = () => {
 
   const handleCheckout = () => {
     // ✅ Push to GTM dataLayer FIRST
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "add_to_cart",
-    });
+    // window.dataLayer = window.dataLayer || [];
+    // window.dataLayer.push({
+    //   event: "add_to_cart",
+    // });
 
     // ✅ Facebook Pixel
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
-    }
+    // if (window.fbq) {
+    //   window.fbq("track", "AddToCart");
+    //   window.fbq("track", "Subscribe");
+    // }
 
     navigate("/register-section-fb");
   };

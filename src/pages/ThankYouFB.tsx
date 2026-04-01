@@ -3,12 +3,6 @@ import { FaCalendarAlt, FaClock, FaGlobe, FaWhatsapp } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { formatDateWithSuffix, formatTime } from "@/utils/dateHelpers";
 
-declare global {
-  interface Window {
-    fbq?: (...args: any[]) => void;
-    _fbq?: any;
-  }
-}
 
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbzpttKDUxieudBnZV1NwfQFtAaBvLvIU5zpip5NKfhzlVqQrDO7tR2VIi8e-j1cgVXjkA/exec";

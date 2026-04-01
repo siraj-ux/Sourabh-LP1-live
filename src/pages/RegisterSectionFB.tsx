@@ -51,9 +51,9 @@ const RegisterSection = () => {
       body: JSON.stringify(formData),
     }).catch(console.error);
 
-    if (window.fbq) {
-      window.fbq("track", "InitiateCheckout");
-    }
+    // if (window.fbq) {
+    //   window.fbq("track", "InitiateCheckout");
+    // }
 
     const params = new URLSearchParams({
       full_name: formData.name,

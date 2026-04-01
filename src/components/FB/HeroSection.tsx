@@ -94,10 +94,10 @@ const HeroSection = () => {
                 <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-orange-500 via-yellow-400 to-orange-500 blur opacity-40 group-hover:opacity-60 transition duration-1000"></div>
                 <button
                   onClick={() => {
-                    if ((window as any).fbq) {
-                      (window as any).fbq("track", "AddToCart");
-                      (window as any).fbq("track", "Subscribe");
-                    }
+                    // if ((window as any).fbq) {
+                    //   (window as any).fbq("track", "AddToCart");
+                    //   (window as any).fbq("track", "Subscribe");
+                    // }
                     navigate("/register-section-fb");
                   }}
                   className="relative px-10 py-4 rounded-xl bg-gradient-to-r from-[#FF8A00] via-[#FFA000] to-[#FF6A00] text-black font-bold text-sm shadow-[0_0_15px_rgba(255,140,0,0.35)] transition-all hover:scale-105"

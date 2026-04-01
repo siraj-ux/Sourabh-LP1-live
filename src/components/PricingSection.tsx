@@ -8,10 +8,10 @@ const PricingSection = () => {
 
   // Handle Scroll to Form
   const handleScrollToForm = () => {
-    if (window.fbq) {
-      window.fbq("track", "AddToCart");
-      window.fbq("track", "Subscribe");
-    }
+    // if (window.fbq) {
+    //   window.fbq("track", "AddToCart");
+    //   window.fbq("track", "Subscribe");
+    // }
 
     // Target the checkout section ID
     const checkoutElement = document.getElementById("checkout");
