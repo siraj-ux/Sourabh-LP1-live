@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from "react";
 import { Shield, Lock } from "lucide-react";
-import { trackAddToCart, trackFormError, trackFormSubmit, getUTMParams, trackPurchase } from "@/utils/gtm";
+import { trackAddToCart, trackFormError, trackFormSubmit, getUTMParams } from "@/utils/gtm";
 import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE, ORDER, PRODUCT, RAZORPAY_DESCRIPTION, RAZORPAY_PRODUCT_NAME, WEBINAR_NAME } from "@/utils/product-info";
 import { toast } from 'sonner';
 import { useRazorpay } from '@/hooks/useRazorpay';
@@ -35,11 +35,6 @@ const CheckoutForm = () => {
         ...utmParams
       }) 
 
-      trackPurchase({
-        transaction_id: paymentId,
-        ...ORDER
-    
-    })
       window.location.href = `/thank-you?${razorpay_params.toString()}`;
     };
   
@@ -112,10 +107,7 @@ const CheckoutForm = () => {
           
 
             if (result.status === "success") {
-                trackPurchase({
-                    ...ORDER,
-                    transaction_id: result.paymentId || ''
-                })
+                
                 handleSuccess?.(result.paymentId!, result.orderId!);
             } else if (result.error !== "Payment cancelled by user") {
                 handleFailure?.(result.error || "Unknown error");
