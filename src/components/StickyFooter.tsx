@@ -2,6 +2,7 @@ import { useWorkshopConfig } from "@/hooks/useWorkshopConfig";
 import { ArrowRight, Clock } from "lucide-react";
 import CheckoutButton from "./CheckoutButton";
 import AddToCartButton from "./AddToCartButton";
+import { trackSubscribe } from "@/utils/gtm";
 
 const StickyFooter = () => {
   const { config } = useWorkshopConfig();
@@ -11,10 +12,10 @@ const StickyFooter = () => {
 
   const handleCheckout = () => {
     // @ts-ignore
-    if (window.fbq) {
-      window.fbq("track", "Subscribe");
-    }
-
+    // if (window.fbq) {
+    //   window.fbq("track", "Subscribe");
+    // }
+    trackSubscribe()
     // Scroll to the form instead of redirecting
     const checkoutElement = document.getElementById("checkout");
     if (checkoutElement) {

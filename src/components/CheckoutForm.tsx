@@ -109,6 +109,8 @@ const CheckoutForm = () => {
             
             });
 
+          
+
             if (result.status === "success") {
                 trackPurchase({
                     ...ORDER,
