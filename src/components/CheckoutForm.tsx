@@ -96,7 +96,8 @@ const CheckoutForm = () => {
             notes: {
                 ...utmParams,
                 webinar_name: WEBINAR_NAME,
-                page_url: window.location.href
+                page_url: window.location.href,
+                ...form
                 
             }
             
