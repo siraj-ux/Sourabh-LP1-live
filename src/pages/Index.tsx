@@ -32,7 +32,7 @@ const Index = () => {
       <FAQSection />
       <UrgencySection />
       <FooterSection />
-      <StickyFooter />
+      {/* <StickyFooter /> */}
     </div>
   );
 };
