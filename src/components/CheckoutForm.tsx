@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from "react";
 import { Shield, Lock } from "lucide-react";
 import { trackAddToCart, trackFormError, trackFormSubmit, getUTMParams } from "@/utils/gtm";
-import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE, ORDER, PRODUCT, RAZORPAY_DESCRIPTION, RAZORPAY_PRODUCT_NAME, WEBINAR_NAME } from "@/utils/product-info";
+import { CURRENCY_SYMBOL, DISCOUNTED_PRICE, OG_PRICE, PRODUCT, RAZORPAY_DESCRIPTION, RAZORPAY_PRODUCT_NAME, WEBINAR_NAME } from "@/utils/product-info";
 import { toast } from 'sonner';
 import { useRazorpay } from '@/hooks/useRazorpay';
 import { cn } from '@/lib/utils';
@@ -94,7 +94,6 @@ const CheckoutForm = () => {
                 
             },
             notes: {
-                ...form,
                 ...utmParams,
                 webinar_name: WEBINAR_NAME,
                 page_url: window.location.href
